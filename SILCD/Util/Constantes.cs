@@ -5,6 +5,10 @@ using System.Web;
 
 namespace SILCD.Util {
     public static class Constantes {
+        // Sessões
         public const string SESSION_DEPUTADOS = "session_deputados";
+
+        // Erros
+        public const string TEMPDATA_ERROR = "error";
     }
 }

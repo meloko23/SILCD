@@ -21,7 +21,7 @@ namespace SILCD.Controllers {
                 repositorio = _repositorio;
             }
         }
-
+        
         public ActionResult Index() {
             try {
                 deputados = repositorio.ListarTodos();
@@ -30,8 +30,7 @@ namespace SILCD.Controllers {
                 }
                 return View(new List<DeputadoViewModel>());
             } catch (Exception erro) {
-                TempData["Error"] = erro.Message;
-                return View();
+                throw new Exception(erro.Message);
             }
         }
     }
