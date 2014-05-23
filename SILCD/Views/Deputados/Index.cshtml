@@ -1,0 +1,32 @@
+﻿@model IEnumerable<SILCD.Models.DeputadoViewModel>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Deputados</h2>
+<hr />
+
+@using (Html.BeginForm("Index", "Deputados", FormMethod.Post, new { @role = "form" })) {
+
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="txtPesquisa">Pesquisar</label>
+            @Html.TextBox("txtPesquisa", null, new { @class = "form-control", @placeholder = "refine a lista" })
+        </div>
+    </div>
+
+    @Html.Grid(Model).Columns(columns => {
+              columns.Add(d => d.Matricula);
+              columns.Add(d => d.Condicao);
+              columns.Add(d => d.Nome);
+              columns.Add(d => d.NomeParlamentar);
+              columns.Add(d => d.Sexo);
+              columns.Add(d => d.Uf);
+              columns.Add(d => d.Partido);
+              columns.Add(d => d.Telefone);
+              columns.Add(d => d.Email);
+    }).WithPaging(10).Filterable(true).Sortable(true);
+}
