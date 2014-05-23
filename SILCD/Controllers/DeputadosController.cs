@@ -11,7 +11,7 @@ using System.Data;
 using SILCD.Repository.Abstract;
 
 namespace SILCD.Controllers {
-    public class DeputadosController : Controller {
+    public class DeputadosController : BaseController {
 
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
         private IDeputadosRepository repositorio;
@@ -28,7 +28,7 @@ namespace SILCD.Controllers {
                 if (deputados != null) {
                     return View(deputados);   
                 }
-                return View();
+                return View(new List<DeputadoViewModel>());
             } catch (Exception erro) {
                 TempData["Error"] = erro.Message;
                 return View();
