@@ -18,13 +18,14 @@ namespace SILCD.Controllers {
 
         public DeputadosController(IDeputadosRepository _repositorio) {
             if (repositorio == null) {
-                repositorio = _repositorio;
+                repositorio = _repositorio;            
             }
         }
         
         public ActionResult Index() {
             try {
-                deputados = repositorio.ListarTodos();
+                //deputados = repositorio.ListarTodos();
+                deputados = repositorio.ListarTodosPorXml(Server.MapPath("~/App_GlobalResources/ObterDeputados.xml"));
                 if (deputados != null) {
                     return View(deputados);   
                 }

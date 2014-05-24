@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 namespace SILCD.Repository.Abstract {
     public interface IDeputadosRepository {
         List<DeputadoViewModel> ListarTodos();
+
+        List<DeputadoViewModel> ListarTodosPorXml(string arquivoXml);
+
         DeputadoViewModel Buscar(int ideCadastro);
     }
 }
