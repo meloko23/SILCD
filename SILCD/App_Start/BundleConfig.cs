@@ -24,6 +24,12 @@ namespace SILCD {
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/cssDataTables").Include(                      
+                      "~/DataTables/css/jquery.dataTables.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+          "~/DataTables/js/jquery.dataTables.js"));
         }
     }
 }

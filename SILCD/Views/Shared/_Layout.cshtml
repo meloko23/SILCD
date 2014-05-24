@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Informações Legislativas da Câmara dos Deputados</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/cssDataTables")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -37,6 +38,11 @@
         </div>
     </div>
     <div class="container body-content">
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/dataTables")
+        @RenderSection("scripts", required: false)
+
         @RenderBody()
         <hr />
         <footer class="footer text-center">
@@ -44,8 +50,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>
