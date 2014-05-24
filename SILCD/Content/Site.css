@@ -40,3 +40,14 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/* Alterações do arquivo original */
+.navbar-brand {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footer {
+    font-size: 0.9em;
+}

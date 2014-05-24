@@ -6,10 +6,9 @@
     <title>Sistema de Informações Legislativas da Câmara dos Deputados</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <span class="badge pull-right" style="margin:15px;">beta</span>
         <div class="container">
             <div class="navbar-header">
@@ -18,21 +17,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("SISTEMA DE INFORMAÇÕES LEGISLATIVAS DA CÂMARA DOS DEPUTADOS", "Index", "Home", null, new { @class = "navbar-brand" })                
+                @Html.ActionLink("SILCD", "Index", "Home", null, new { @class = "navbar-brand title" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Deputados", "Index", "Deputados")</li>
                     <li>@Html.ActionLink("Comissões", "Index", "Comissoes")</li>
                     <li>@Html.ActionLink("Proposições", "Index", "Proposicoes")</li>
                 </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Pesquisar" title="Pesquise rapidamente por deputados (nome, partido ou uf)">
+                    </div>
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="footer text-center">
             <p>&copy; @DateTime.Now.Year - Sistema de Informações Legislativas da Câmara dos Deputados</p>
         </footer>
     </div>
