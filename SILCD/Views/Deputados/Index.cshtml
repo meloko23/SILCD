@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <button class="btn btn-info" role="button" data-toggle="modal" data-target="#modalDeputados" title="Ver detalhes" onclick="setarDadosDeputado('@item.UrlFoto', '@item.Nome', '@item.NomeParlamentar', '@item.Matricula', '@item.Partido', '@item.Uf', '@item.Telefone', '@item.Email');"><span class="glyphicon glyphicon-align-justify"></span></button>
-                        @*<a href="@Url.Action("Detalhes/"+item.IdeCadastro.ToString())" class="btn btn-info" title="Ver detalhes"><span class="glyphicon glyphicon-align-justify"></span></a>*@
+                        <a href="@Url.Action("Detalhes/"+item.IdeCadastro.ToString())" class="btn btn-info" title="Ver detalhes"><span class="glyphicon glyphicon-align-justify"></span></a>
                     </td>
                 </tr>
 
@@ -68,10 +68,10 @@
                     <div>
                         <img id="imgDepuado" src="" />
                     </div>
-                    <div>
+                    <div style="float: right; margin-right:90px; margin-top:-160px;">
                         <div>
                             <label>Nome: </label>
-                            @Html.TextBox("txtNomeParlamentar", null, new { @class = "disabled" })
+                            @Html.Label("lblNome", new { @id = "lblNome", @class = "" })
                         </div>
                         <div>
                             <label>Nome Parlamentar: </label>
@@ -118,12 +118,13 @@
     // Função que seta o valor das informações do deputado
     function setarDadosDeputado(urlImagem, nome, nomeParlamentar, matricula, partido, uf, telefone, email) {
         $(".modal-body #imgDepuado").attr("src", urlImagem);
-        $(".modal-body #txtNomeParlamentar").attr("val", nome);
-        $(".modal-body #lblNomeParlamentar").attr("text", nomeParlamentar);
-        $(".modal-body #lblMatricula").attr("text", matricula);
-        $(".modal-body #lblPartido").attr("text", partido);
-        $(".modal-body #lblUf").attr("text", uf);
-        $(".modal-body #lblTelefone").attr("text", telefone);
-        $(".modal-body #lblEmail").attr("text", email);
+        $(".modal-body #lblNome").attr("value", nome);
+        $("label[for='lblNome']").text(nome);
+        $("label[for='lblNomeParlamentar']").text(nomeParlamentar);
+        $("label[for='lblMatricula']").text(matricula);
+        $("label[for='lblPartido']").text(partido);
+        $("label[for='lblUf']").text(uf);
+        $("label[for='lblTelefone']").text(telefone);
+        $("label[for='lblEmail']").text(email);
     }
 </script>

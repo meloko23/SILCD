@@ -35,15 +35,15 @@ namespace SILCD.Controllers {
             }
         }
 
-        public ActionResult Detalhes(int IdeCadastro)
+        public ActionResult Detalhes(int id = 0)
         {
             try
             {
-                if (IdeCadastro > 0) {
-                    var deputado = deputados.Find(d => d.IdeCadastro.Equals(IdeCadastro));
-                    return View(deputado);                
+                var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
+                if (deputado == null) {
+                    return HttpNotFound();                    
                 }
-                return View();
+                return View(deputado);
             }
             catch (Exception erro)
             {
