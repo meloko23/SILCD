@@ -25,12 +25,28 @@ namespace SILCD.Controllers {
         public ActionResult Index() {
             try {
                 //deputados = repositorio.ListarTodos();
-                deputados = repositorio.ListarTodosPorXml(Server.MapPath("~/App_GlobalResources/ObterDeputados.xml"));
+                deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS));
                 if (deputados != null) {
                     return View(deputados);   
                 }
                 return View(new List<DeputadoViewModel>());
             } catch (Exception erro) {
+                throw new Exception(erro.Message);
+            }
+        }
+
+        public ActionResult Detalhes(int IdeCadastro)
+        {
+            try
+            {
+                if (IdeCadastro > 0) {
+                    var deputado = deputados.Find(d => d.IdeCadastro.Equals(IdeCadastro));
+                    return View(deputado);                
+                }
+                return View();
+            }
+            catch (Exception erro)
+            {
                 throw new Exception(erro.Message);
             }
         }

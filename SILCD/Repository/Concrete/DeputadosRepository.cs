@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Xml;
 
 namespace SILCD.Repository.Concrete {
-    public class DeputadosRepository : IDeputadosRepository {
+    public class DeputadosRepository : IDeputadosRepository, IDisposable {
 
         private Deputados servicosDeputados;
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
@@ -96,6 +96,18 @@ namespace SILCD.Repository.Concrete {
 
         public DeputadoViewModel Buscar(int ideCadastro) {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            servicosDeputados = null;
+            deputados = null;
+            deputado = null;
+        }
+
+        ~DeputadosRepository()
+        {
+            Dispose();
         }
     }
 }

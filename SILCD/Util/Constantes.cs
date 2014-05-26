@@ -10,5 +10,8 @@ namespace SILCD.Util {
 
         // Erros
         public const string TEMPDATA_ERROR = "error";
+
+        // Constantes dos resources
+        public const string XML_DEPUTADOS = "~/App_GlobalResources/ObterDeputados.xml";
     }
 }
