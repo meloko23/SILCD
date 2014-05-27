@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <button class="btn btn-info" role="button" data-toggle="modal" data-target="#modalDeputados" title="Ver detalhes" onclick="setarDadosDeputado('@item.UrlFoto', '@item.Nome', '@item.NomeParlamentar', '@item.Matricula', '@item.Partido', '@item.Uf', '@item.Telefone', '@item.Email');"><span class="glyphicon glyphicon-align-justify"></span></button>
-                        <a href="@Url.Action("Detalhes/"+item.IdeCadastro.ToString())" class="btn btn-info" title="Ver detalhes"><span class="glyphicon glyphicon-align-justify"></span></a>
+                        @*<a href="@Url.Action("Detalhes/"+item.IdeCadastro.ToString())" class="btn btn-info" title="Ver detalhes"><span class="glyphicon glyphicon-align-justify"></span></a>*@
                     </td>
                 </tr>
 

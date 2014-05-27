@@ -27,9 +27,9 @@
                     <li class="disabled"><a href="#">Proposições</a></li>
                     <li class="disabled"><a href="#">Sessões Plenárias</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
+                <form class="navbar-form navbar-right" role="search" action="@Url.Action("Index", "Deputados")">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Pesquisar" title="Pesquise rapidamente por deputados (nome, partido ou uf)">
+                        <input id="txtPesquisa" name="txtPesquisa" type="text" class="form-control" placeholder="Pesquisar deputados" title="Pesquise rapidamente por deputados (nome, partido ou uf)">
                     </div>
                     <button type="submit" class="btn btn-info">
                         <span class="glyphicon glyphicon-search"></span>

@@ -26,6 +26,16 @@ namespace SILCD.Controllers {
             try {
                 //deputados = repositorio.ListarTodos();
                 deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS));
+                string txtPesquisa = Request["txtPesquisa"];
+                if (!String.IsNullOrEmpty(txtPesquisa)) {
+                    try {
+                        var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) || d.Uf.Contains(txtPesquisa) || d.Partido.Contains(txtPesquisa)).ToList();
+                        deputados = (List <DeputadoViewModel>) _deputados;
+                    } catch {
+
+                    }                    
+                }
+
                 if (deputados != null) {
                     return View(deputados);   
                 }
