@@ -15,6 +15,8 @@ namespace SILCD.Repository.Concrete {
         //private Deputados servicosDeputados;
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
         private DeputadoViewModel deputado;
+        private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
+        private List<SessaoViewModels> listaSessaoParlamentar;
 
         //public DeputadosRepository() {
         //    if (servicosDeputados == null) {
@@ -100,6 +102,58 @@ namespace SILCD.Repository.Concrete {
 
         public DeputadoViewModel Buscar(int ideCadastro) {
             throw new NotImplementedException();
+        }
+
+        // TODO
+        public DeputadoViewModel BuscarDetalhes(int ideCadastro)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load("http://www.camara.gov.br/SitCamaraWS/Deputados.asmx/ObterDetalhesDeputado?ideCadastro=" + ideCadastro.ToString() + "&numLegislatura=");
+
+            XmlNodeList nodes = xml.SelectNodes("/Deputados/Deputado");
+
+            foreach (XmlNode node in nodes)
+            {
+
+            }
+            return null;
+        }
+
+        // TODO
+        public DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load("http://www.camara.gov.br/SitCamaraWS/sessoesreunioes.asmx/ListarPresencasParlamentar?dataIni=" + dataIni + "&dataFim=" + dataFim + "&numMatriculaParlamentar=" + deputado.Matricula);
+
+            XmlNodeList nodesPresencaParlamentar = xml.SelectNodes("/parlamentar/diasDeSessoes2/dia");
+
+            listaPresencaParlamentar = new List<PresencaParlamentarViewModels>();
+            PresencaParlamentarViewModels presencaParlamentar;
+            foreach (XmlNode xmlNodePresencaParlamentar in nodesPresencaParlamentar)
+            {
+                listaSessaoParlamentar = new List<SessaoViewModels>();
+                SessaoViewModels sessao;
+                XmlNodeList nodesSessoes = xml.SelectNodes("/sessoes/sessao");
+
+                foreach (XmlNode xmlNodeSessao in nodesSessoes)
+                {
+                    sessao = new SessaoViewModels();
+                    sessao.Descricao = xmlNodeSessao["descricao"].InnerText;
+                    sessao.Frequencia = xmlNodeSessao["frequencia"].InnerText;
+
+                    listaSessaoParlamentar.Add(sessao);
+                }
+
+                presencaParlamentar = new PresencaParlamentarViewModels();
+                presencaParlamentar.Data = Convert.ToDateTime(xmlNodePresencaParlamentar["data"].InnerText);
+                presencaParlamentar.FrequenciaNoDia = xmlNodePresencaParlamentar["frequencianoDia"].InnerText;
+                presencaParlamentar.Justificativa = xmlNodePresencaParlamentar["justificativa"].InnerText;
+                presencaParlamentar.Sessoes = listaSessaoParlamentar;
+
+                listaPresencaParlamentar.Add(presencaParlamentar);
+            }
+
+            return deputado;
         }
 
         public void Dispose()

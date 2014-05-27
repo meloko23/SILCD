@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SILCD.Models {
-    public class DeputadoViewModel {
+namespace SILCD.Models
+{
+    public class DeputadoViewModel
+    {
 
         private int ideCadastro;
         private string condicao;
@@ -20,74 +22,102 @@ namespace SILCD.Models {
         private string gabinete;
         private string telefone;
         private string email;
+        private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
 
-        [Display(Name="Id do Parlamentar")]
-        public int IdParlamentar {
+        [Display(Name = "Id do Parlamentar")]
+        public int IdParlamentar
+        {
             get { return idParlamentar; }
             set { idParlamentar = value; }
         }
 
-        public string Nome {
+        public string Nome
+        {
             get { return nome; }
             set { nome = value; }
         }
 
         [Display(Name = "Nome Parlamentar")]
-        public string NomeParlamentar {
+        public string NomeParlamentar
+        {
             get { return nomeParlamentar; }
             set { nomeParlamentar = value; }
         }
-        
-        public string UrlFoto {
+
+        public string UrlFoto
+        {
             get { return urlFoto; }
             set { urlFoto = value; }
         }
 
-        public string Sexo {
+        public string Sexo
+        {
             get { return sexo; }
             set { sexo = value; }
         }
 
-        public string Uf {
+        public string Uf
+        {
             get { return uf; }
             set { uf = value; }
         }
 
-        public string Partido {
+        public string Partido
+        {
             get { return partido; }
             set { partido = value; }
         }
-        public string Gabinete {
+        public string Gabinete
+        {
             get { return gabinete; }
             set { gabinete = value; }
         }
 
-        public string Telefone {
+        public string Telefone
+        {
             get { return telefone; }
             set { telefone = value; }
         }
 
         [Display(Name = "E-mail")]
-        public string Email {
+        public string Email
+        {
             get { return email; }
             set { email = value; }
         }
 
-        public int IdeCadastro {
+        public int IdeCadastro
+        {
             get { return ideCadastro; }
             set { ideCadastro = value; }
         }
 
         [Display(Name = "Condição")]
-        public string Condicao {
+        public string Condicao
+        {
             get { return condicao; }
             set { condicao = value; }
         }
 
         [Display(Name = "Matrícula")]
-        public string Matricula {
+        public string Matricula
+        {
             get { return matricula; }
             set { matricula = value; }
+        }
+
+        public List<PresencaParlamentarViewModels> ListaPresencaParlamentar
+        {
+            get { return listaPresencaParlamentar; }
+            set { listaPresencaParlamentar = value; }
+        }
+
+        public void AdicionaListaPresencaParlamentar(PresencaParlamentarViewModels presencaParlamentar)
+        {
+            if (listaPresencaParlamentar != null)
+            {
+                listaPresencaParlamentar.Add(presencaParlamentar);
+            }
         }
 
     }
