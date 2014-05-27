@@ -18,10 +18,10 @@ namespace SILCD.Controllers {
 
         public DeputadosController(IDeputadosRepository _repositorio) {
             if (repositorio == null) {
-                repositorio = _repositorio;            
+                repositorio = _repositorio;
             }
         }
-        
+
         public ActionResult Index() {
             try {
                 //deputados = repositorio.ListarTodos();
@@ -30,14 +30,14 @@ namespace SILCD.Controllers {
                 if (!String.IsNullOrEmpty(txtPesquisa)) {
                     try {
                         var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) || d.Uf.Contains(txtPesquisa) || d.Partido.Contains(txtPesquisa)).ToList();
-                        deputados = (List <DeputadoViewModel>) _deputados;
+                        deputados = (List<DeputadoViewModel>)_deputados;
                     } catch {
 
-                    }                    
+                    }
                 }
 
                 if (deputados != null) {
-                    return View(deputados);   
+                    return View(deputados);
                 }
                 return View(new List<DeputadoViewModel>());
             } catch (Exception erro) {
@@ -45,20 +45,21 @@ namespace SILCD.Controllers {
             }
         }
 
-        public ActionResult Detalhes(int id = 0)
-        {
-            try
-            {
+        public ActionResult Detalhes(int id = 0) {
+            try {
                 var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
                 if (deputado == null) {
-                    return HttpNotFound();                    
+                    return HttpNotFound();
                 }
                 return View(deputado);
-            }
-            catch (Exception erro)
-            {
+            } catch (Exception erro) {
                 throw new Exception(erro.Message);
             }
+        }
+
+        ~DeputadosController() {
+            deputados = null;
+            repositorio = null;
         }
     }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Informações Legislativas da Câmara dos Deputados</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/cssDataTables")
+    @Styles.Render("~/Content/cssgridmvc")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -41,7 +41,7 @@
     <div class="container body-content">
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/dataTables")
+        @Scripts.Render("~/bundles/gridmvc")
         @RenderSection("scripts", required: false)
 
         @RenderBody()

@@ -25,11 +25,9 @@ namespace SILCD {
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/cssDataTables").Include(                      
-                      "~/DataTables/css/jquery.dataTables.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
-          "~/DataTables/js/jquery.dataTables.js"));
+            // Bundle Gridmvc
+            bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include("~/Scripts/gridmvc.js"));
+            bundles.Add(new StyleBundle("~/Content/cssgridmvc").Include("~/Content/Gridmvc.css"));
         }
     }
 }

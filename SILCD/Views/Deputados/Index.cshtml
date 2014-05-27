@@ -8,53 +8,22 @@
 <h2>Deputados</h2>
 <hr />
 
-@using (Html.BeginForm("Index", "Deputados", FormMethod.Post, new { @id = "formDetalhes", @name = "formDetalhes", @role = "form" }))
-{
-    <table id="tabelaDeputados" class="table table-striped display">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdeCadastro)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Partido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+@using (Html.BeginForm("Index", "Deputados", FormMethod.Post, new { @id = "formDetalhes", @name = "formDetalhes", @role = "form" })) {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdeCadastro)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Partido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        <button class="btn btn-info" role="button" data-toggle="modal" data-target="#modalDeputados" title="Ver detalhes" onclick="setarDadosDeputado('@item.UrlFoto', '@item.Nome', '@item.NomeParlamentar', '@item.Matricula', '@item.Partido', '@item.Uf', '@item.Telefone', '@item.Email');"><span class="glyphicon glyphicon-align-justify"></span></button>
-                        @*<a href="@Url.Action("Detalhes/"+item.IdeCadastro.ToString())" class="btn btn-info" title="Ver detalhes"><span class="glyphicon glyphicon-align-justify"></span></a>*@
-                    </td>
-                </tr>
-
-            }
-        </tbody>
-
-    </table>
+    @Html.Grid(Model).Columns(columns => {
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(d =>
+        @<b>
+            <button class="btn btn-info" role="button" data-toggle="modal" data-target="#modalDeputados" title="Ver detalhes" onclick="setarDadosDeputado('@d.UrlFoto', '@d.Nome', '@d.NomeParlamentar', '@d.Matricula', '@d.Partido', '@d.Uf', '@d.Telefone', '@d.Email');"><span class="glyphicon glyphicon-align-justify"></span></button>
+        </b>);
+        columns.Add(d => d.IdeCadastro).Titled("Id").Sortable(true).Filterable(true);
+        columns.Add(d => d.Nome).Titled("Nome").Sortable(true).Filterable(true);
+        columns.Add(d => d.Partido).Titled("Partido").Sortable(true).Filterable(true);
+        columns.Add(d => d.Email).Titled("E-mail").Sortable(true).Filterable(true);
+    }).WithPaging(5).Filterable(true).Sortable(true);
 
     <!-- Modal com as informações do deputado -->
     <div class="modal fade" id="modalDeputados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -106,9 +75,6 @@
         </div>
     </div>
 }
-
-<link href="~/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
-<script src="~/DataTables/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
