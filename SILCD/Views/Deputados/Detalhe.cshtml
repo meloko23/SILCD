@@ -1,0 +1,35 @@
+﻿@model SILCD.Models.DeputadoViewModel
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+<div>
+    <div class="row header">
+        <div class="col-md-8">
+            <img src="@Model.UrlFoto" class="avatar img-circle" style="width:74px" />
+            <h3 class="name">@Model.Nome</h3>
+            <span class="area">@Model.NomeParlamentar</span>
+        </div>
+    </div>
+    <hr />
+    <div class="row profile">
+        <div class="col-md-9 bio">
+            <div class="profile-box">
+                <div class="col-md-12 section">
+                    <h4>Condição</h4>
+                    <p>@Model.Condicao</p>
+                    <h4>Matrícula</h4>
+                    <p>@Model.Matricula</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Voltar", "Index")
+</p>

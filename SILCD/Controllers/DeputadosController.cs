@@ -45,8 +45,9 @@ namespace SILCD.Controllers {
             }
         }
 
-        public ActionResult Detalhes(int id = 0) {
+        public ActionResult Detalhe(int id = 0) {
             try {
+                var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
                 var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
                 if (deputado == null) {
                     return HttpNotFound();

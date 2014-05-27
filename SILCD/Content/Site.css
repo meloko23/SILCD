@@ -55,3 +55,25 @@ input[type="checkbox"].input-validation-error {
 .footer {
     font-size: 0.9em;
 }
+
+.avatar {
+    float: left;
+    margin-right: 25px;
+    border: 2px solid #e9ecee;
+    position: relative;
+    top: 3px;
+}
+
+.name {
+    font-weight: 600;
+    margin: 20px 0 8px 0;
+    line-height: 26px;
+    margin-bottom: 10px;
+    float: none;
+}
+
+span.area {
+    color: #7d848c;
+    font-style: italic;
+    font-size: 14px;
+}

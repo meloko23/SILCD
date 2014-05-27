@@ -19,6 +19,21 @@
         @<b>
             <button class="btn btn-info" role="button" data-toggle="modal" data-target="#modalDeputados" title="Ver detalhes" onclick="setarDadosDeputado('@d.UrlFoto', '@d.Nome', '@d.NomeParlamentar', '@d.Matricula', '@d.Partido', '@d.Uf', '@d.Telefone', '@d.Email');"><span class="glyphicon glyphicon-align-justify"></span></button>
         </b>);
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(d =>
+        @<b>
+             <a class="btn btn-info" href="@Url.Action("Detalhe/" + d.IdeCadastro, "Deputados")"><span class="glyphicon glyphicon-align-justify"></span></a>
+        </b>);     
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(d =>
+        @<img src="@d.UrlFoto" class="img-circle" width="30" />
+        );
         columns.Add(d => d.IdeCadastro).Titled("Id").Sortable(true).Filterable(true);
         columns.Add(d => d.Nome).Titled("Nome").Sortable(true).Filterable(true);
         columns.Add(d => d.Partido).Titled("Partido").Sortable(true).Filterable(true);
