@@ -77,3 +77,11 @@ span.area {
     font-style: italic;
     font-size: 14px;
 }
+
+.detalhes-deputado {
+    
+}
+
+.detalhes-deputado dd {
+    margin-bottom:7px;    
+}

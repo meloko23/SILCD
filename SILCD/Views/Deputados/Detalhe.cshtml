@@ -7,29 +7,56 @@
 
 <h2></h2>
 
-<div>
-    <div class="row header">
-        <div class="col-md-8">
-            <img src="@Model.UrlFoto" class="avatar img-circle" style="width:74px" />
-            <h3 class="name">@Model.Nome</h3>
-            <span class="area">@Model.NomeParlamentar</span>
+@*<div>
+        <div class="row header">
+            <div class="col-md-8">
+                <img src="@Model.UrlFoto" class="img-thumbnail" />
+                <h3 class="name">@Model.Nome</h3>
+                <span class="area">@Model.NomeParlamentar</span>
+            </div>
         </div>
-    </div>
-    <hr />
-    <div class="row profile">
-        <div class="col-md-9 bio">
-            <div class="profile-box">
-                <div class="col-md-12 section">
-                    <h4>Condição</h4>
-                    <p>@Model.Condicao</p>
-                    <h4>Matrícula</h4>
-                    <p>@Model.Matricula</p>
+        <hr />
+        <div class="row profile">
+            <div class="col-md-9 bio">
+                <div class="profile-box">
+                    <div class="col-md-12 section">
+                        <h4>Condição</h4>
+                        <p>@Model.Condicao</p>
+                        <h4>Matrícula</h4>
+                        <p>@Model.Matricula</p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-5">
+                <img src="@Model.UrlFoto" class="img-thumbnail" style="width: 114px" />
+            </div>
+            <div class="detalhes-deputado col-md-7 col-sm-7" style="margin-top: -17px">
+                <dl>
+                    <dt><h3 class="name">@Model.Nome</h3></dt>
+                    <dd><span class="area">@Model.NomeParlamentar</span></dd>
+                </dl>
+                <hr />
+                <dl>
+                    <dt>@Model.Condicao</dt>
+                    <dd><small><em>condição</em></small></dd>
+                    <dt>@Model.Partido</dt>
+                    <dd><small><em>partido</em></small></dd>
+                    <dt>@Model.Matricula</dt>
+                    <dd><small><em>matrícula</em></small></dd>
+                    <dt>@Model.Telefone</dt>
+                    <dd><small><em>telefone</em></small></dd>
+                    <dt>@Model.Email</dt>
+                    <dd><small><em>e-mail</em></small></dd>
+                    <dt>@Model.Uf</dt>
+                    <dd><small><em>uf</em></small></dd>
+                </dl>
             </div>
         </div>
     </div>
 </div>
-
-<p>
-    @Html.ActionLink("Voltar", "Index")
-</p>

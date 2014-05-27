@@ -49,6 +49,7 @@ namespace SILCD.Controllers {
             try {
                 var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
                 var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
+                BuscarDetalhes(id);
                 if (deputado == null) {
                     return HttpNotFound();
                 }
@@ -56,6 +57,21 @@ namespace SILCD.Controllers {
             } catch (Exception erro) {
                 throw new Exception(erro.Message);
             }
+        }
+        
+        // TODO
+        private DeputadoViewModel BuscarDetalhes(int ideCadastro)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load("http://www.camara.gov.br/SitCamaraWS/Deputados.asmx/ObterDetalhesDeputado?ideCadastro=" + ideCadastro.ToString() + "&numLegislatura=");
+
+            XmlNodeList nodes = xml.SelectNodes("/Deputados/Deputado");
+
+            foreach (XmlNode node in nodes)
+            {
+
+            }
+            return null;
         }
 
         ~DeputadosController() {
