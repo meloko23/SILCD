@@ -10,14 +10,14 @@ namespace SILCD.Controllers
 {
     public abstract class BaseController : Controller
     {
-        //protected override void OnException(ExceptionContext filterContext)
-        //{
-        //    Exception e = filterContext.Exception;
-        //    filterContext.ExceptionHandled = true;
-        //    filterContext.Result = new ViewResult()
-        //    {
-        //        ViewName = "Error"
-        //    };
-        //}
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception e = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error"
+            };
+        }
     }
 }

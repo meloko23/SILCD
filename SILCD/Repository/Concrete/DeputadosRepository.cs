@@ -132,14 +132,16 @@ namespace SILCD.Repository.Concrete {
             XmlNode deputadosDetalhesXML = servicosDeputados.ObterDetalhesDeputado(deputado.IdeCadastro.ToString(), null);
             foreach (XmlNode node in deputadosDetalhesXML.ChildNodes)
             {
+                var dataNascimento = node["dataNascimento"].InnerText.Split('/');
                 deputado.NomeProfissao = node["nomeProfissao"].InnerText;
-                deputado.DataNascimento = DateTime.ParseExact(node["dataNascimento"].InnerText, "dd/MM/yyyy", null);
+                deputado.DataNascimento = new DateTime(int.Parse(dataNascimento[2]),
+                                                        int.Parse(dataNascimento[1]),
+                                                        int.Parse(dataNascimento[0]));
                 return deputado;
             }
             return deputado;
         }
 
-        // TODO
         public DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim)
         {
             XmlNode deputadosPresencaParlamentarXML = servicosSessoesReunioes.ListarPresencasParlamentar(dataIni, dataFim, deputado.Matricula);
@@ -161,8 +163,11 @@ namespace SILCD.Repository.Concrete {
                     listaSessaoParlamentar.Add(sessao);
                 }
 
+                var dataPresencaParlamentar = xmlNodePresencaParlamentar["data"].InnerText.Split('/');
                 presencaParlamentar = new PresencaParlamentarViewModels();
-                presencaParlamentar.Data = DateTime.ParseExact(xmlNodePresencaParlamentar["data"].InnerText, "dd/MM/yyyy", null);
+                presencaParlamentar.Data = new DateTime(int.Parse(dataPresencaParlamentar[2]),
+                                                        int.Parse(dataPresencaParlamentar[1]),
+                                                        int.Parse(dataPresencaParlamentar[0]));
                 presencaParlamentar.FrequenciaNoDia = xmlNodePresencaParlamentar["frequencianoDia"].InnerText;
                 presencaParlamentar.Justificativa = xmlNodePresencaParlamentar["justificativa"].InnerText;
                 presencaParlamentar.Sessoes = listaSessaoParlamentar;
