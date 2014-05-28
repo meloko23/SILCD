@@ -80,7 +80,6 @@ namespace SILCD.Controllers
             }
         }
 
-        // TODO
         private DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado)
         {
             if (deputado != null && deputado.IdeCadastro > 0)
@@ -93,7 +92,6 @@ namespace SILCD.Controllers
             }
         }
 
-        // TODO
         private DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim)
         {
             if (deputado == null) {
@@ -115,6 +113,15 @@ namespace SILCD.Controllers
         {
             deputados = null;
             repositorio = null;
+        }
+
+        public ActionResult DistribuicaoPorUF()
+        {
+            var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
+            deputados = deputados.GroupBy(d => d.Uf)
+                                 .Select(n => new { Text = n.Key, Value = n.Count() });
+
+            return View();
         }
     }
 }

@@ -1,0 +1,87 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['UF', 'Quantidade de Deputados'],
+                ['AC', 8],
+                ['AL', 9],
+                ['AM', 8],
+                ['AP', 8],
+                ['BA', 38],
+                ['CE', 22],
+                ['DF', 8],
+                ['ES', 10],
+                ['GO', 17],
+                ['MA', 18],
+                ['MG', 53],
+                ['MS', 8],
+                ['MT', 8],
+                ['PA', 17],
+                ['PB', 12],
+                ['PE', 25],
+                ['PI', 10],
+                ['PR', 30],
+                ['RJ', 46],
+                ['RN', 8],
+                ['RO', 8],
+                ['RR', 8],
+                ['RS', 31],
+                ['SC', 16],
+                ['SE', 8],
+                ['SP', 70],
+                ['TO', 8]
+            ]);
+
+            var options = {
+                title: 'DEPUTADOS X UF',
+                pieHole: 0.4,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchartUF'));
+            chart.draw(data, options);
+
+            var data2 = google.visualization.arrayToDataTable([
+                ['PARTIDOS', 'Quantidade de Deputados'],
+                ['DEM', 28],
+                ['PCdoB', 15],
+                ['PDT', 18],
+                ['PMDB', 72],
+                ['PMN', 3],
+                ['PP', 40],
+                ['PPS', 6],
+                ['PR', 32],
+                ['PRB', 9],
+                ['PROS', 20],
+                ['PRP', 2],
+                ['PSB', 25],
+                ['PSC', 12],
+                ['PSD', 45],
+                ['PSDB', 44],
+                ['PSDC', 1],
+                ['PSOL', 3],
+                ['PT', 88],
+                ['PTB', 17],
+                ['PTdoB', 3],
+                ['PV', 8],
+                ['SD', 21]
+            ]);
+
+            var options2 = {
+                title: 'DEPUTADOS X PARTIDOS',
+                pieHole: 0.4,
+            };
+
+            var chart2 = new google.visualization.PieChart(document.getElementById('donutchartPARTIDO'));
+            chart2.draw(data2, options2);
+        }
+    </script>
+</head>
+<body>
+    <div id="donutchartUF" style="width: 900px; height: 500px;"></div>
+    <div id="donutchartPARTIDO" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
