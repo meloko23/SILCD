@@ -66,7 +66,8 @@ namespace SILCD.Controllers
             {
                 var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
                 var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
-                //BuscarDetalhes(id);
+                BuscarDetalhes(deputado);
+                PreencherPresencaParlamentar(deputado, null, null);
                 if (deputado == null)
                 {
                     return HttpNotFound();
@@ -80,11 +81,11 @@ namespace SILCD.Controllers
         }
 
         // TODO
-        private DeputadoViewModel BuscarDetalhes(int ideCadastro)
+        private DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado)
         {
-            if (ideCadastro > 0)
+            if (deputado != null && deputado.IdeCadastro > 0)
             {
-                return repositorio.BuscarDetalhes(ideCadastro);
+                return repositorio.BuscarDetalhes(deputado);
             }
             else
             {
@@ -100,11 +101,11 @@ namespace SILCD.Controllers
             }
             
             if (String.IsNullOrEmpty(dataIni)) {
-                dataIni = String.Format("{0:MM/dd/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1));
+                dataIni = String.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1));
             }
 
             if (String.IsNullOrEmpty(dataFim)) {
-                dataFim = String.Format("{0:MM/dd/yyyy}", DateTime.Now);
+                dataFim = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
             }
 
             return repositorio.PreencherPresencaParlamentar(deputado, dataIni, dataFim);

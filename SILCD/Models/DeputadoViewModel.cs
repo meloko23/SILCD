@@ -17,6 +17,8 @@ namespace SILCD.Models
         private string nomeParlamentar;
         private string urlFoto;
         private string sexo;
+        private DateTime dataNascimento;
+        private string nomeProfissao;
         private string uf;
         private string partido;
         private string gabinete;
@@ -54,6 +56,16 @@ namespace SILCD.Models
         {
             get { return sexo; }
             set { sexo = value; }
+        }
+
+        public DateTime DataNascimento {
+            get { return dataNascimento; }
+            set { dataNascimento = value; }
+        }
+
+        public string NomeProfissao {
+            get { return nomeProfissao; }
+            set { nomeProfissao = value; }
         }
 
         public string Uf

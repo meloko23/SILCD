@@ -1,4 +1,5 @@
 ﻿using SILCD.br.gov.camara.www;
+using SILCD.sessoesReunioes.br.gov.camara.www;
 using SILCD.Models;
 using SILCD.Repository.Abstract;
 using SILCD.Util;
@@ -12,17 +13,24 @@ using System.Xml;
 namespace SILCD.Repository.Concrete {
     public class DeputadosRepository : IDeputadosRepository, IDisposable {
 
-        //private Deputados servicosDeputados;
+        private Deputados servicosDeputados;
+        private SessoesReunioes servicosSessoesReunioes;
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
         private DeputadoViewModel deputado;
         private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
         private List<SessaoViewModels> listaSessaoParlamentar;
 
-        //public DeputadosRepository() {
-        //    if (servicosDeputados == null) {
-        //        servicosDeputados = new Deputados();
-        //    }
-        //}
+        public DeputadosRepository() {
+            
+            if (servicosDeputados == null) {
+                servicosDeputados = new Deputados();
+            }
+
+            if (servicosSessoesReunioes == null) {
+                servicosSessoesReunioes = new SessoesReunioes();
+            }
+
+        }
 
         public List<DeputadoViewModel> ListarTodos() {
             throw new NotImplementedException();
@@ -67,6 +75,11 @@ namespace SILCD.Repository.Concrete {
 
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arquivoXml"></param>
+        /// <returns></returns>
         public List<DeputadoViewModel> ListarTodosPorXml(string arquivoXml) {
 
             if (!String.IsNullOrEmpty(arquivoXml)) {
@@ -100,29 +113,67 @@ namespace SILCD.Repository.Concrete {
             return SessionHelper.ObterDeputados();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ideCadastro"></param>
+        /// <returns></returns>
         public DeputadoViewModel Buscar(int ideCadastro) {
             throw new NotImplementedException();
         }
 
-        // TODO
-        public DeputadoViewModel BuscarDetalhes(int ideCadastro)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deputado"></param>
+        /// <returns></returns>
+        public DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado)
         {
-            XmlDocument xml = new XmlDocument();
-            xml.Load("http://www.camara.gov.br/SitCamaraWS/Deputados.asmx/ObterDetalhesDeputado?ideCadastro=" + ideCadastro.ToString() + "&numLegislatura=");
-
-            XmlNodeList nodes = xml.SelectNodes("/Deputados/Deputado");
-
-            foreach (XmlNode node in nodes)
+            XmlNode deputadosDetalhesXML = servicosDeputados.ObterDetalhesDeputado(deputado.IdeCadastro.ToString(), null);
+            foreach (XmlNode node in deputadosDetalhesXML.ChildNodes)
             {
-
+                deputado.NomeProfissao = node["nomeProfissao"].InnerText;
+                deputado.DataNascimento = Convert.ToDateTime(node["dataNascimento"].InnerText);
+                return deputado;
             }
-            return null;
+            return deputado;
         }
 
         // TODO
-        public DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim)
+        public DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni = null, string dataFim = null)
         {
-            XmlDocument xml = new XmlDocument();
+            XmlNode deputadosPresencaParlamentarXML = servicosSessoesReunioes.ListarPresencasParlamentar(dataIni, dataFim, deputado.Matricula);
+            XmlNodeList nodesPresencaParlamentar = deputadosPresencaParlamentarXML.SelectNodes("/diasDeSessoes2/dia");
+
+            listaPresencaParlamentar = new List<PresencaParlamentarViewModels>();
+            PresencaParlamentarViewModels presencaParlamentar;
+
+            foreach (XmlNode xmlNodePresencaParlamentar in nodesPresencaParlamentar) {
+                listaSessaoParlamentar = new List<SessaoViewModels>();
+                SessaoViewModels sessao;
+                XmlNodeList nodesSessoes = xmlNodePresencaParlamentar.SelectNodes("sessoes/sessao");
+
+                foreach (XmlNode xmlNodeSessao in nodesSessoes) {
+                    sessao = new SessaoViewModels();
+                    sessao.Descricao = xmlNodeSessao["descricao"].InnerText;
+                    sessao.Frequencia = xmlNodeSessao["frequencia"].InnerText;
+
+                    listaSessaoParlamentar.Add(sessao);
+                }
+
+                presencaParlamentar = new PresencaParlamentarViewModels();
+                presencaParlamentar.Data = Convert.ToDateTime(xmlNodePresencaParlamentar["data"].InnerText);
+                presencaParlamentar.FrequenciaNoDia = xmlNodePresencaParlamentar["frequencianoDia"].InnerText;
+                presencaParlamentar.Justificativa = xmlNodePresencaParlamentar["justificativa"].InnerText;
+                presencaParlamentar.Sessoes = listaSessaoParlamentar;
+
+                listaPresencaParlamentar.Add(presencaParlamentar);
+            }
+
+            deputado.ListaPresencaParlamentar = listaPresencaParlamentar;
+            return deputado;
+
+            /*XmlDocument xml = new XmlDocument();
             xml.Load("http://www.camara.gov.br/SitCamaraWS/sessoesreunioes.asmx/ListarPresencasParlamentar?dataIni=" + dataIni + "&dataFim=" + dataFim + "&numMatriculaParlamentar=" + deputado.Matricula);
 
             XmlNodeList nodesPresencaParlamentar = xml.SelectNodes("/parlamentar/diasDeSessoes2/dia");
@@ -153,12 +204,13 @@ namespace SILCD.Repository.Concrete {
                 listaPresencaParlamentar.Add(presencaParlamentar);
             }
 
-            return deputado;
+            return deputado;*/
+            //return null;
         }
 
         public void Dispose()
         {
-            //servicosDeputados = null;
+            servicosDeputados = null;
             deputados = null;
             deputado = null;
         }

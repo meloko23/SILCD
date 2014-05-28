@@ -32,5 +32,15 @@ namespace SILCD.Properties {
                 return ((string)(this["SILCD_br_gov_camara_www_Deputados"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.camara.gov.br/SitCamaraWS/sessoesreunioes.asmx")]
+        public string SILCD_sessoesReunioes_br_gov_camara_www_SessoesReunioes {
+            get {
+                return ((string)(this["SILCD_sessoesReunioes_br_gov_camara_www_SessoesReunioes"]));
+            }
+        }
     }
 }

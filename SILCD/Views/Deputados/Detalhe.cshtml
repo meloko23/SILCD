@@ -36,7 +36,7 @@
             <div class="col-md-2 col-sm-5">
                 <img src="@Model.UrlFoto" class="img-thumbnail" style="width: 114px" />
             </div>
-            <div class="detalhes-deputado col-md-7 col-sm-7" style="margin-top: -17px">
+            <div class="detalhes-deputado col-md-10 col-sm-7" style="margin-top: -17px">
                 <dl>
                     <dt><h3 class="name">@Model.Nome</h3></dt>
                     <dd><span class="area">@Model.NomeParlamentar</span></dd>
@@ -47,6 +47,10 @@
                     <dd><small><em>condição</em></small></dd>
                     <dt>@Model.Partido</dt>
                     <dd><small><em>partido</em></small></dd>
+                    <dt>@String.Format("{0:dd/MM/yyyy}",Model.DataNascimento)</dt>
+                    <dd><small><em>nascimento</em></small></dd>
+                    <dt>@Model.NomeProfissao</dt>
+                    <dd><small><em>Profissão</em></small></dd>
                     <dt>@Model.Matricula</dt>
                     <dd><small><em>matrícula</em></small></dd>
                     <dt>@Model.Telefone</dt>
@@ -56,6 +60,25 @@
                     <dt>@Model.Uf</dt>
                     <dd><small><em>uf</em></small></dd>
                 </dl>
+                <hr />
+                <div>
+                    <button type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Voltar
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-list"></span>
+                        Lista de presença do deputado
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-stats"></span>
+                        Gráfico de presença por período
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-record"></span>
+                        Comissões do deputado
+                    </button>
+                </div>
             </div>
         </div>
     </div>

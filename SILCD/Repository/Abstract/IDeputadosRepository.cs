@@ -13,8 +13,8 @@ namespace SILCD.Repository.Abstract {
 
         DeputadoViewModel Buscar(int ideCadastro);
 
-        DeputadoViewModel BuscarDetalhes(int ideCadastro);
+        DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado);
 
-        DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim);
+        DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni = null, string dataFim = null);
     }
 }
