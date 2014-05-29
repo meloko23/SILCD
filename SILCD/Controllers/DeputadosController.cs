@@ -10,6 +10,8 @@ using SILCD.Util;
 using System.Data;
 using SILCD.Repository.Abstract;
 using SILCD.Helper;
+using SILCD.Enum;
+using SILCD.Resources;
 
 namespace SILCD.Controllers {
     public class DeputadosController : BaseController {
@@ -27,21 +29,21 @@ namespace SILCD.Controllers {
 
         public ActionResult Index() {
             try {
-                //deputados = repositorio.ListarTodos();
-                deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS));
+                var deputados = repositorio.Listar((int)TipoDataSource.XML);
                 string txtPesquisa = Request["txtPesquisa"];
+
                 if (!String.IsNullOrEmpty(txtPesquisa)) {
                     try {
                         var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) || d.Uf.Contains(txtPesquisa) || d.Partido.Contains(txtPesquisa)).ToList();
                         deputados = (List<DeputadoViewModel>)_deputados;
-                    } catch {
-
+                    } catch (Exception erro) {
+                        throw new Exception(erro.Message);
                     }
                 }
 
                 if (deputados != null) {
                     return View(deputados);
-                }               
+                }
 
                 return View(new List<DeputadoViewModel>());
             } catch (Exception erro) {
@@ -51,16 +53,15 @@ namespace SILCD.Controllers {
 
         public ActionResult Detalhe(int id = 0) {
             try {
-                var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
-                var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
+                var deputado = repositorio.Buscar(id, (int)TipoDataSource.XML);
                 BuscarDetalhes(deputado);
                 PreencherPresencaParlamentar(deputado, null, null);
                 if (deputado == null) {
                     return HttpNotFound();
                 }
                 return View(deputado);
-            } catch (Exception erro) {
-                throw new Exception(erro.Message);
+            } catch {
+                throw new Exception(Messages.RecordNotFound);
             }
         }
 
@@ -89,7 +90,7 @@ namespace SILCD.Controllers {
         }
 
         private void BuscarDistribuicaoPorUF() {
-            var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
+            var deputados = repositorio.Listar((int)TipoDataSource.XML).ToList();
             var query = from d in deputados
                         group d by d.Uf into g
                         select new { Uf = g.Key, UfCount = g.Count() };
@@ -99,7 +100,7 @@ namespace SILCD.Controllers {
         }
 
         private void BuscarDistribuicaoPorPartido() {
-            var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
+            var deputados = repositorio.Listar((int)TipoDataSource.XML).ToList();
             var query = from d in deputados
                         group d by d.Partido into g
                         select new { Partido = g.Key, PartidoCount = g.Count() };
@@ -107,7 +108,7 @@ namespace SILCD.Controllers {
             SessionHelper.GravarDistribuicaoPorPartido(query);
         }
 
-        public ActionResult DistribuicaoPorUF () {
+        public ActionResult DistribuicaoPorUF() {
             BuscarDistribuicaoPorUF();
             return View(SessionHelper.BuscarDistribuicaoPorUF());
         }

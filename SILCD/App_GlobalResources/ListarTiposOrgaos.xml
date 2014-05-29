@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tipoOrgaos>
+  <tipoOrgao id="81000" descricao="Bancada" />
+  <tipoOrgao id="110" descricao="Comissão da Câmara dos Deputados" />
+  <tipoOrgao id="7" descricao="Comissão de Sindicância" />
+  <tipoOrgao id="1" descricao="Comissão Diretora" />
+  <tipoOrgao id="21000" descricao="Comissão do Senado Federal" />
+  <tipoOrgao id="3" descricao="Comissão Especial" />
+  <tipoOrgao id="5" descricao="Comissão Externa" />
+  <tipoOrgao id="9" descricao="Comissão Medida Provisória" />
+  <tipoOrgao id="81002" descricao="Comissão Mista" />
+  <tipoOrgao id="21" descricao="Comissão Mista Especial" />
+  <tipoOrgao id="6" descricao="Comissão Mista Permanente" />
+  <tipoOrgao id="4" descricao="Comissão Parlamentar de Inquérito" />
+  <tipoOrgao id="20" descricao="Comissão Parlamentar Mista de Inquérito" />
+  <tipoOrgao id="2" descricao="Comissão Permanente" />
+  <tipoOrgao id="81003" descricao="Comissão Permanente do Senado Federal" />
+  <tipoOrgao id="8" descricao="Comissão Representativa do CN" />
+  <tipoOrgao id="13000" descricao="Comissão Temporária da CD" />
+  <tipoOrgao id="81004" descricao="Comissão Temporária do Senado Federal" />
+  <tipoOrgao id="22" descricao="Conferência" />
+  <tipoOrgao id="11" descricao="Conselho" />
+  <tipoOrgao id="15" descricao="COORDENADORIA DA MULHER" />
+  <tipoOrgao id="13" descricao="Corregedoria" />
+  <tipoOrgao id="81005" descricao="Gabinete Parlamentar" />
+  <tipoOrgao id="10" descricao="Grupo de Trabalho" />
+  <tipoOrgao id="1000" descricao="Importação das proposições inativas" />
+  <tipoOrgao id="80000" descricao="Liderança" />
+  <tipoOrgao id="81006" descricao="Ministério - Requerimento de Informação" />
+  <tipoOrgao id="12000" descricao="Órgão da Câmara dos Deputados" />
+  <tipoOrgao id="81001" descricao="Órgão do Congresso Nacional" />
+  <tipoOrgao id="30000" descricao="Órgão do Poder Executivo" />
+  <tipoOrgao id="50000" descricao="Órgão do Poder Judiciário" />
+  <tipoOrgao id="40000" descricao="Órgão do Poder Legislativo" />
+  <tipoOrgao id="22000" descricao="Órgão do Senado Federal" />
+  <tipoOrgao id="14" descricao="Ouvidoria" />
+  <tipoOrgao id="12" descricao="Procuradoria Parlamentar" />
+  <tipoOrgao id="70000" descricao="Sociedade Civil" />
+  <tipoOrgao id="25" descricao="Subcomissão" />
+</tipoOrgaos>

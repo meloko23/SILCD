@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SILCD.Models
 {
-    public class DeputadoViewModel
+    public class DeputadoViewModel : BaseViewModels
     {
 
         private int ideCadastro;
@@ -22,6 +22,7 @@ namespace SILCD.Models
         private string uf;
         private string partido;
         private string gabinete;
+        private string anexo;
         private string telefone;
         private string email;
         private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
@@ -79,10 +80,17 @@ namespace SILCD.Models
             get { return partido; }
             set { partido = value; }
         }
+
         public string Gabinete
         {
             get { return gabinete; }
             set { gabinete = value; }
+        }
+
+        public string Anexo
+        {
+            get { return anexo; }
+            set { anexo = value; }
         }
 
         public string Telefone

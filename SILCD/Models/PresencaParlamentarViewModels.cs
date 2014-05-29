@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SILCD.Models
 {
-    public class PresencaParlamentarViewModels
+    public class PresencaParlamentarViewModels : BaseViewModels
     {
         private DateTime data;
         private string frequenciaNoDia;

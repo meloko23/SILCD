@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
 namespace SILCD.Util {
     public static class Constantes {
+        
         // Sessões
         public const string SESSION_DEPUTADOS = "session_deputados";
         public const string SESSION_DEPUTADOS_DISTRIBUICAO_UF = "session_deputados_distribuicao_uf";
@@ -15,5 +17,7 @@ namespace SILCD.Util {
 
         // Constantes dos resources
         public const string XML_DEPUTADOS = "~/App_GlobalResources/ObterDeputados.xml";
+        public const string XML_ORGAOS = "~/App_GlobalResources/ObterOrgaos.xml";
+
     }
 }

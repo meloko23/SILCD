@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SILCD.Models
 {
-    public class SessaoViewModels
+    public class SessaoViewModels : BaseViewModels
     {
         private string descricao;
         private string frequencia;

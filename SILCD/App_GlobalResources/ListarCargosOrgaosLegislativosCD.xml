@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cargosOrgaos>
+  <cargo id="1" descricao="Presidente" />
+  <cargo id="2" descricao="1º Vice-Presidente" />
+  <cargo id="3" descricao="2º Vice-Presidente" />
+  <cargo id="4" descricao="3º Vice-Presidente" />
+  <cargo id="5" descricao="1º Secretário" />
+  <cargo id="6" descricao="2º Secretário" />
+  <cargo id="7" descricao="3º Secretário" />
+  <cargo id="8" descricao="4º Secretário" />
+  <cargo id="9" descricao="1º Suplente de Secretário" />
+  <cargo id="10" descricao="2º Suplente de Secretário" />
+  <cargo id="11" descricao="3º Suplente de Secretário" />
+  <cargo id="12" descricao="4º Suplente de Secretário" />
+  <cargo id="14" descricao="Coordenador" />
+  <cargo id="16" descricao="Secretário-Geral" />
+  <cargo id="17" descricao="Secretário-Geral Adjunto" />
+  <cargo id="20" descricao="Corregedor" />
+  <cargo id="21" descricao="Corregedor Substituto" />
+  <cargo id="22" descricao="Procurador" />
+  <cargo id="23" descricao="Ouvidor-Geral" />
+  <cargo id="24" descricao="Ouvidor Substituto" />
+  <cargo id="25" descricao="Procuradora" />
+  <cargo id="26" descricao="Procuradora Adjunta" />
+  <cargo id="27" descricao="Coordenadora" />
+  <cargo id="28" descricao="1ª Coordenadora Adjunta" />
+  <cargo id="29" descricao="2ª Coordenadora Adjunta" />
+  <cargo id="30" descricao="3ª Coordenadora Adjunta" />
+  <cargo id="40" descricao="Vice-Presidente" />
+  <cargo id="50" descricao="Relator" />
+  <cargo id="51" descricao="Sub-Relator" />
+  <cargo id="52" descricao="Relator Substituto" />
+  <cargo id="53" descricao="Relator-Geral" />
+  <cargo id="54" descricao="Relator-Parcial" />
+  <cargo id="55" descricao="Relator-Parcial Substituto" />
+  <cargo id="56" descricao="Relator-Geral Substituto" />
+  <cargo id="57" descricao="Mediador" />
+  <cargo id="60" descricao="Ouvidor" />
+  <cargo id="62" descricao="Revisor" />
+</cargosOrgaos>

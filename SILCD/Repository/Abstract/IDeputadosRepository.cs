@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace SILCD.Repository.Abstract {
     public interface IDeputadosRepository {
-        List<DeputadoViewModel> ListarTodos();
 
-        List<DeputadoViewModel> ListarTodosPorXml(string arquivoXml);
+        List<DeputadoViewModel> Listar(int tipoDataSource);
 
-        DeputadoViewModel Buscar(int ideCadastro);
+        DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource);
 
         DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado);
 
