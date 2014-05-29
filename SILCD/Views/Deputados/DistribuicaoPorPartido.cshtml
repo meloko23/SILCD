@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "DistribuicaoPorPartido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data2 = google.visualization.arrayToDataTable([
+            ['PARTIDOS', 'Quantidade de Deputados'],
+            ['DEM', 28],
+            ['PCdoB', 15],
+            ['PDT', 18],
+            ['PMDB', 72],
+            ['PMN', 3],
+            ['PP', 40],
+            ['PPS', 6],
+            ['PR', 32],
+            ['PRB', 9],
+            ['PROS', 20],
+            ['PRP', 2],
+            ['PSB', 25],
+            ['PSC', 12],
+            ['PSD', 45],
+            ['PSDB', 44],
+            ['PSDC', 1],
+            ['PSOL', 3],
+            ['PT', 88],
+            ['PTB', 17],
+            ['PTdoB', 3],
+            ['PV', 8],
+            ['SD', 21]
+        ]);
+
+        var options2 = {
+            title: 'DEPUTADOS X PARTIDOS',
+            pieHole: 0.4,
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('donutchartPARTIDO'));
+        chart2.draw(data2, options2);
+    }
+</script>
+
+<h2>Distribuição Por Partido</h2>
+
+<div id="donutchartPARTIDO" style="width: 900px; height: 500px;"></div>
+

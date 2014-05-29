@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
+using SILCD.Helper;
 
 namespace SILCD.Repository.Concrete {
     public class DeputadosRepository : IDeputadosRepository, IDisposable {

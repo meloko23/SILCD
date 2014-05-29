@@ -9,95 +9,74 @@ using SILCD.Models;
 using SILCD.Util;
 using System.Data;
 using SILCD.Repository.Abstract;
+using SILCD.Helper;
 
-namespace SILCD.Controllers
-{
-    public class DeputadosController : BaseController
-    {
+namespace SILCD.Controllers {
+    public class DeputadosController : BaseController {
 
         private IDeputadosRepository repositorio;
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
         private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
         private List<SessaoViewModels> listaSessaoParlamentar;
 
-        public DeputadosController(IDeputadosRepository _repositorio)
-        {
-            if (repositorio == null)
-            {
+        public DeputadosController(IDeputadosRepository _repositorio) {
+            if (repositorio == null) {
                 repositorio = _repositorio;
             }
         }
 
-        public ActionResult Index()
-        {
-            try
-            {
+        public ActionResult Index() {
+            try {
                 //deputados = repositorio.ListarTodos();
                 deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS));
                 string txtPesquisa = Request["txtPesquisa"];
-                if (!String.IsNullOrEmpty(txtPesquisa))
-                {
-                    try
-                    {
+                if (!String.IsNullOrEmpty(txtPesquisa)) {
+                    try {
                         var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) || d.Uf.Contains(txtPesquisa) || d.Partido.Contains(txtPesquisa)).ToList();
                         deputados = (List<DeputadoViewModel>)_deputados;
-                    }
-                    catch
-                    {
+                    } catch {
 
                     }
                 }
 
-                if (deputados != null)
-                {
+                if (deputados != null) {
                     return View(deputados);
-                }
+                }               
+
                 return View(new List<DeputadoViewModel>());
-            }
-            catch (Exception erro)
-            {
+            } catch (Exception erro) {
                 throw new Exception(erro.Message);
             }
         }
 
-        public ActionResult Detalhe(int id = 0)
-        {
-            try
-            {
+        public ActionResult Detalhe(int id = 0) {
+            try {
                 var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
                 var deputado = deputados.Find(d => d.IdeCadastro.Equals(id));
                 BuscarDetalhes(deputado);
                 PreencherPresencaParlamentar(deputado, null, null);
-                if (deputado == null)
-                {
+                if (deputado == null) {
                     return HttpNotFound();
                 }
                 return View(deputado);
-            }
-            catch (Exception erro)
-            {
+            } catch (Exception erro) {
                 throw new Exception(erro.Message);
             }
         }
 
-        private DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado)
-        {
-            if (deputado != null && deputado.IdeCadastro > 0)
-            {
+        private DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado) {
+            if (deputado != null && deputado.IdeCadastro > 0) {
                 return repositorio.BuscarDetalhes(deputado);
-            }
-            else
-            {
+            } else {
                 return null;
             }
         }
 
-        private DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim)
-        {
+        private DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim) {
             if (deputado == null) {
                 throw new Exception("Informe o deputado para obter a lista de presença.");
             }
-            
+
             if (String.IsNullOrEmpty(dataIni)) {
                 dataIni = String.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1));
             }
@@ -109,19 +88,38 @@ namespace SILCD.Controllers
             return repositorio.PreencherPresencaParlamentar(deputado, dataIni, dataFim);
         }
 
-        ~DeputadosController()
-        {
-            deputados = null;
-            repositorio = null;
+        private void BuscarDistribuicaoPorUF() {
+            var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
+            var query = from d in deputados
+                        group d by d.Uf into g
+                        select new { Uf = g.Key, UfCount = g.Count() };
+
+            SessionHelper.GravarDistribuicaoPorUF(query);
+
         }
 
-        public ActionResult DistribuicaoPorUF()
-        {
+        private void BuscarDistribuicaoPorPartido() {
             var deputados = repositorio.ListarTodosPorXml(Server.MapPath(Constantes.XML_DEPUTADOS)).ToList();
-            deputados = deputados.GroupBy(d => d.Uf)
-                                 .Select(n => new { Text = n.Key, Value = n.Count() });
+            var query = from d in deputados
+                        group d by d.Partido into g
+                        select new { Partido = g.Key, PartidoCount = g.Count() };
 
-            return View();
+            SessionHelper.GravarDistribuicaoPorPartido(query);
+        }
+
+        public ActionResult DistribuicaoPorUF () {
+            BuscarDistribuicaoPorUF();
+            return View(SessionHelper.BuscarDistribuicaoPorUF());
+        }
+
+        public ActionResult DistribuicaoPorPartido() {
+            BuscarDistribuicaoPorPartido();
+            return View(SessionHelper.BuscarDistribuicaoPorPartido());
+        }
+
+        ~DeputadosController() {
+            deputados = null;
+            repositorio = null;
         }
     }
 }
