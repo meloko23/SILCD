@@ -1,12 +1,17 @@
 ﻿@model IEnumerable<SILCD.Models.DeputadoViewModel>
-@using GridMvc.Html
+@using SILCD.Util;
+@using GridMvc.Html;
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Deputados</h2>
-<hr />
+<div class="page-header">
+    <h2>
+        Deputados
+        <small>@Constantes.TITULO_SISTEMA.ToString()</small>
+    </h2>
+</div>
 
 @using (Html.BeginForm("Index", "Deputados", FormMethod.Post, new { @id = "formDetalhes", @name = "formDetalhes", @role = "form" })) {
 

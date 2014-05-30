@@ -1,28 +1,24 @@
 ﻿@model IEnumerable<SILCD.Models.OrgaoViewModels>
-@using GridMvc.Html
+@using SILCD.Util;
+@using GridMvc.Html;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Órgãos Legislativos</h2>
-<hr />
+<div class="page-header">
+    <h2>
+        Órgãos Legislativos
+        <small>@Constantes.TITULO_SISTEMA.ToString()</small>
+    </h2>    
+</div>
 
 @using (Html.BeginForm("Index", "Orgaos", FormMethod.Post, new { @id = "form", @name = "form", @role = "form" })) {
-
     @Html.Grid(Model).Columns(columns => {
-    @*columns.Add()
-        .Encoded(false)
-        .Sanitized(false)
-        .SetWidth(30)
-        .RenderValueAs(d =>
-        @<b>
-             <a class="btn btn-info" href="@Url.Action("Detalhe/" + d.IdeCadastro, "Deputados")"><span class="glyphicon glyphicon-align-justify"></span></a>
-        </b>);*@
-        columns.Add(d => d.Id).Titled("Id").Sortable(true).Filterable(true);
-        //columns.Add(d => d.Nome).Titled("Nome").Sortable(true).Filterable(true);
-        columns.Add(d => d.Sigla).Titled("Sigla").Sortable(true).Filterable(true);
-        columns.Add(d => d.Descricao).Titled("Descrição").Sortable(true).Filterable(true);
-    }).WithPaging(5).Filterable(true).Sortable(true);
+    columns.Add(d => d.Id).Titled("Id").Sortable(true).Filterable(true);
+    columns.Add(d => d.TipoOrgao.Descricao).Titled("Tipo de Órgão").Sortable(true).Filterable(true);
+    columns.Add(d => d.Sigla).Titled("Sigla").Sortable(true).Filterable(true);
+    columns.Add(d => d.Descricao).Titled("Descrição").Sortable(true).Filterable(true);
+}).WithPaging(5).Filterable(true).Sortable(true);
 }

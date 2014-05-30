@@ -111,7 +111,6 @@ namespace SILCD.Repository.Concrete {
             return deputado;
         }
 
-
         /// <summary>
         /// Lista do banco
         /// </summary>

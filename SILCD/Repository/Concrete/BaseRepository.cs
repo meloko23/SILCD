@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DbFactory.Implementation;
 using System.Configuration;
 
 namespace SILCD.Repository.Concrete

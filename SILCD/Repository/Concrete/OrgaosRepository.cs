@@ -39,10 +39,14 @@ namespace SILCD.Repository.Concrete {
         /// <returns></returns>
         List<OrgaoViewModels> ListarPorXml() {
 
-            var arquivoXml = HttpContext.Current.Server.MapPath(Constantes.XML_ORGAOS);
+            var arquivoXmlOrgaos = HttpContext.Current.Server.MapPath(Constantes.XML_ORGAOS);
+            var arquivoXmlTiposOrgaos = HttpContext.Current.Server.MapPath(Constantes.XML_TIPOS_ORGAOS);
 
             DataSet dsOrgaos = new DataSet();
-            dsOrgaos.ReadXml(arquivoXml);
+            dsOrgaos.ReadXml(arquivoXmlOrgaos);
+
+            DataSet dsTiposOrgaos = new DataSet();
+            dsTiposOrgaos.ReadXml(arquivoXmlTiposOrgaos);
 
             if (dsOrgaos != null && dsOrgaos.Tables[0] != null && dsOrgaos.Tables[0].Rows.Count > 0) {
 
@@ -54,6 +58,19 @@ namespace SILCD.Repository.Concrete {
                     orgao.IdTipodeOrgao = int.Parse(orgaoRow["idTipodeOrgao"].ToString());
                     orgao.Sigla = orgaoRow["sigla"].ToString();
                     orgao.Descricao = orgaoRow["descricao"].ToString();
+
+                    //var dtTipoOrgao = dsTiposOrgaos.Tables[0].Select("id = " + orgao.IdTipodeOrgao);
+                    //var dtTipoOrgao = dsTiposOrgaos.Tables[0].Select("id = " + orgao.IdTipodeOrgao, "id ASC");
+                    DataRow[] dtTipoOrgao = dsTiposOrgaos.Tables[0].Select("id = '" + orgao.IdTipodeOrgao.ToString()+ "'", "id ASC");
+
+                    TipoOrgaoViewModels tipoOrgao;
+                    foreach (DataRow tipo in dtTipoOrgao) {
+                        tipoOrgao = new TipoOrgaoViewModels();
+                        tipoOrgao.Id = int.Parse(tipo["id"].ToString());
+                        tipoOrgao.Descricao = tipo["descricao"].ToString();
+
+                        orgao.TipoOrgao = tipoOrgao;
+                    }
 
                     orgaos.Add(orgao);
                 }

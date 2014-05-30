@@ -31,9 +31,9 @@ namespace SILCD.Models {
             set { descricao = value; }
         }
 
-        public virtual TipoOrgaoViewModels TipoOrgaoViewModels {
-            get { return TipoOrgaoViewModels; }
-            set { TipoOrgaoViewModels = value; }
+        public TipoOrgaoViewModels TipoOrgao {
+            get;
+            set;
         }
 
     }

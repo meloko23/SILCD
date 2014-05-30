@@ -1,11 +1,17 @@
 ﻿@model SILCD.Models.DeputadoViewModel
+@using SILCD.Util;
 
 @{
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2></h2>
+<div class="page-header">
+    <h2>
+        Deputados
+        <small>@Constantes.TITULO_SISTEMA.ToString()</small>
+    </h2>
+</div>
 
 @*<div>
         <div class="row header">

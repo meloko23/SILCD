@@ -34,7 +34,9 @@ namespace SILCD.Controllers {
 
                 if (!String.IsNullOrEmpty(txtPesquisa)) {
                     try {
-                        var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) || d.Uf.Contains(txtPesquisa) || d.Partido.Contains(txtPesquisa)).ToList();
+                        var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) ||
+                                                              d.Uf.Contains(txtPesquisa) ||
+                                                              d.Partido.Contains(txtPesquisa)).ToList();
                         deputados = (List<DeputadoViewModel>)_deputados;
                     } catch (Exception erro) {
                         throw new Exception(erro.Message);
