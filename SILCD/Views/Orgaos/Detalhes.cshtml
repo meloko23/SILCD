@@ -1,0 +1,100 @@
+﻿@model SILCD.Models.OrgaoViewModels
+@using GridMvc.Html;
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h2>
+        Detalhes
+        <small>Órgãos Legislativos</small>
+    </h2>
+</div>
+
+<dl class="dl-horizontal">
+    <dt>
+        <label>Id</label>
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.IdTipodeOrgao)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Sigla)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Sigla)
+    </dd>
+
+    <dt>
+        <label>Descrição</label>
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Descricao)
+    </dd>
+
+</dl>
+
+<div class="page-header">
+    <h2>
+        Membros
+        <small>Órgãos Legislativos</small>
+    </h2>
+</div>
+<dl class="dl-horizontal">
+    <dt>
+        <label>Presidente</label>
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Presidente.Nome)
+    </dd>
+    <dt>
+        <label>1º Vice-Presidente</label>
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.PrimeiroVicePresidente.Nome)
+    </dd>
+    <dt>
+        <label>2º Vice-Presidente</label>
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.SegundoVicePresidente.Nome)
+    </dd>
+    <dt>
+        <label>3º Vice-Presidente</label>
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.TerceiroVicePresidente.Nome)
+    </dd>
+    <dt>
+        <label>Relator</label>
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Relator.Nome)
+    </dd>
+    <dt>Membros</dt>
+    <dd>
+        @if (Model.Membros != null && Model.Membros.Count > 0) {
+            @Html.Grid(Model.Membros).Columns(columns => {
+               columns.Add(d => d.Nome).Titled("Nome").Sortable(true).Filterable(true);
+               columns.Add(d => d.Partido).Titled("Partido").Sortable(true).Filterable(true);
+               columns.Add(d => d.Uf).Titled("Uf").Sortable(true).Filterable(true);
+               columns.Add(d => d.Condicao).Titled("Situação").Sortable(true).Filterable(true);
+           }).WithPaging(100).Filterable(true).Sortable(true);
+
+        }
+    </dd>
+</dl>
+
+@*@using (Html.BeginForm("ObterMembros", "Orgaos", FormMethod.Post, new { @id = "form", @name = "form", @role = "form" })) {
+
+        @Html.Grid(Model).Columns(columns => {
+        columns.Add(o => o.Nome).Titled("Nome").Sortable(true).Filterable(true);
+        }).WithPaging(5).Filterable(true).Sortable(true);
+
+    }*@

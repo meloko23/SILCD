@@ -8,5 +8,8 @@
     <Setting Name="SILCD_sessoesReunioes_br_gov_camara_www_SessoesReunioes" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://www.camara.gov.br/SitCamaraWS/sessoesreunioes.asmx</Value>
     </Setting>
+    <Setting Name="SILCD_comissoes_br_gov_camara_www_Comissoes" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://www.camara.gov.br/sitcamaraws/comissoes.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

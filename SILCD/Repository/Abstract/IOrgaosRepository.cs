@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 namespace SILCD.Repository.Abstract {
     public interface IOrgaosRepository {
         List<OrgaoViewModels> Listar(int tipoDataSource);
+
+        OrgaoViewModels Buscar(int idOrgao);
     }
 }

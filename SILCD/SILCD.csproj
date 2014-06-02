@@ -210,6 +210,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\comissoes.br.gov.camara.www\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -276,6 +281,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Orgaos\Detalhes.cshtml" />
+    <None Include="Web References\comissoes.br.gov.camara.www\comissoes.disco" />
     <Content Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -283,6 +290,11 @@
     <Content Include="Views\Deputados\DistribuicaoPorUF.cshtml" />
     <Content Include="Views\Deputados\DistribuicaoPorPartido.cshtml" />
     <Content Include="Views\Orgaos\Index.cshtml" />
+    <None Include="Web References\comissoes.br.gov.camara.www\comissoes.wsdl" />
+    <Content Include="Web References\comissoes.br.gov.camara.www\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <None Include="Web References\sessoesReunioes.br.gov.camara.www\sessoesreunioes.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -339,6 +351,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://www.camara.gov.br/sitcamaraws/comissoes.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\comissoes.br.gov.camara.www\</RelPath>
+      <UpdateFromURL>http://www.camara.gov.br/sitcamaraws/comissoes.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SILCD_comissoes_br_gov_camara_www_Comissoes</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://www.camara.gov.br/SitCamaraWS/Deputados.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\br.gov.camara.www\</RelPath>

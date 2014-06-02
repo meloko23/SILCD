@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://www.camara.gov.br/SitCamaraWS/Comissoes" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="http://www.camara.gov.br/SitCamaraWS/Comissoes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.camara.gov.br/SitCamaraWS/Comissoes">
+      <s:element name="ObterMembros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IDOrgao" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObterMembrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObterMembrosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObterMembrosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObterMembros" />
+  </wsdl:message>
+  <wsdl:message name="ObterMembrosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObterMembrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObterMembrosHttpGetIn">
+    <wsdl:part name="IDOrgao" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObterMembrosHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ObterMembrosHttpPostIn">
+    <wsdl:part name="IDOrgao" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObterMembrosHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="ComissoesSoap">
+    <wsdl:operation name="ObterMembros">
+      <wsdl:input message="tns:ObterMembrosSoapIn" />
+      <wsdl:output message="tns:ObterMembrosSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ComissoesHttpGet">
+    <wsdl:operation name="ObterMembros">
+      <wsdl:input message="tns:ObterMembrosHttpGetIn" />
+      <wsdl:output message="tns:ObterMembrosHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ComissoesHttpPost">
+    <wsdl:operation name="ObterMembros">
+      <wsdl:input message="tns:ObterMembrosHttpPostIn" />
+      <wsdl:output message="tns:ObterMembrosHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ComissoesSoap" type="tns:ComissoesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObterMembros">
+      <soap:operation soapAction="http://www.camara.gov.br/SitCamaraWS/Comissoes/ObterMembros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ComissoesHttpGet" type="tns:ComissoesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ObterMembros">
+      <http:operation location="/ObterMembros" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ComissoesHttpPost" type="tns:ComissoesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ObterMembros">
+      <http:operation location="/ObterMembros" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Comissoes">
+    <wsdl:port name="ComissoesSoap" binding="tns:ComissoesSoap">
+      <soap:address location="http://www.camara.gov.br/sitcamaraws/comissoes.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ComissoesHttpGet" binding="tns:ComissoesHttpGet">
+      <http:address location="http://www.camara.gov.br/sitcamaraws/comissoes.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ComissoesHttpPost" binding="tns:ComissoesHttpPost">
+      <http:address location="http://www.camara.gov.br/sitcamaraws/comissoes.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
