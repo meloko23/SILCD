@@ -149,16 +149,16 @@ namespace SILCD.Repository.Concrete {
 
                     };
 
-                if (xmlNodeListMembros.Count > 0)
+                if (xmlNodeListMembros.Count > 0) {
                     orgao.Membros = new List<DeputadoViewModel>();
-
-                foreach (XmlNode _membro in xmlNodeListMembros) {
-                    orgao.AdicionaMembro(new DeputadoViewModel {
-                        Nome = _membro["nome"].InnerText,
-                        Partido = _membro["partido"].InnerText,
-                        Uf = _membro["uf"].InnerText,
-                        Condicao = _membro["situacao"].InnerText
-                    });
+                    foreach (XmlNode _membro in xmlNodeListMembros) {
+                        orgao.AdicionaMembro(new DeputadoViewModel {
+                            Nome = _membro["nome"].InnerText,
+                            Partido = _membro["partido"].InnerText,
+                            Uf = _membro["uf"].InnerText,
+                            Condicao = _membro["situacao"].InnerText
+                        });
+                    }
                 }
             }
 

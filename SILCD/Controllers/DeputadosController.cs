@@ -29,7 +29,27 @@ namespace SILCD.Controllers {
 
         public ActionResult Index() {
             try {
-                var deputados = repositorio.Listar((int)TipoDataSource.XML);
+                //var deputados = repositorio.Listar((int)TipoDataSource.XML);
+                //string txtPesquisa = Request["txtPesquisa"];
+
+                //if (!String.IsNullOrEmpty(txtPesquisa)) {
+                //    try {
+                //        var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) ||
+                //                                              d.Uf.Contains(txtPesquisa) ||
+                //                                              d.Partido.Contains(txtPesquisa)).ToList();
+                //        deputados = (List<DeputadoViewModel>)_deputados;
+                //    } catch (Exception erro) {
+                //        throw new Exception(erro.Message);
+                //    }
+                //}
+
+                //if (deputados != null) {
+                //    return View(deputados);
+                //}
+
+                //return View(new List<DeputadoViewModel>());
+                
+                var deputados = repositorio.List;
                 string txtPesquisa = Request["txtPesquisa"];
 
                 if (!String.IsNullOrEmpty(txtPesquisa)) {
@@ -48,6 +68,7 @@ namespace SILCD.Controllers {
                 }
 
                 return View(new List<DeputadoViewModel>());
+
             } catch (Exception erro) {
                 throw new Exception(erro.Message);
             }
@@ -57,7 +78,7 @@ namespace SILCD.Controllers {
             try {
                 var deputado = repositorio.Buscar(id, (int)TipoDataSource.XML);
                 BuscarDetalhes(deputado);
-                PreencherPresencaParlamentar(deputado, null, null);
+                //PreencherPresencaParlamentar(deputado, null, null); //TODO (está com erro, analisar problema)
                 if (deputado == null) {
                     return HttpNotFound();
                 }

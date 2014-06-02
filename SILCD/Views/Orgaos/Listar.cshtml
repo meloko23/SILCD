@@ -1,0 +1,20 @@
+﻿@model IEnumerable<SILCD.Models.OrgaoViewModels>
+@using SILCD.Util;
+@using GridMvc.Html;
+
+<div id="retornoAjax">
+    @Html.Grid(Model).Columns(columns => {
+            columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(o =>
+            @<b>
+                <a class="btn btn-info" href="@Url.Action("Detalhes/" + o.Id, "Orgaos")" title="Detalhes do Órgão"><span class="glyphicon glyphicon-list"></span></a>
+            </b>);
+            columns.Add(o => o.Id).Titled("Id").Sortable(true).Filterable(true);
+            columns.Add(o => o.TipoOrgao.Descricao).Titled("Tipo de Órgão").Sortable(true).Filterable(true);
+            columns.Add(o => o.Sigla).Titled("Sigla").Sortable(true).Filterable(true);
+            columns.Add(o => o.Descricao).Titled("Descrição").Sortable(true).Filterable(true);
+        }).WithPaging(5).Filterable(true).Sortable(true)
+</div>

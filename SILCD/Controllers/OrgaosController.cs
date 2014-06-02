@@ -33,6 +33,18 @@ namespace SILCD.Controllers {
             return View();
         }
 
+        public ActionResult Listar() {
+            var orgaos = repositorio.Listar((int)TipoDataSource.XML);
+            var filtro = Request["chkFiltroTipo"];
+            if (!String.IsNullOrEmpty(filtro)) {
+                orgaos = orgaos.Where(o => o.Descricao.Contains(filtro)).ToList();
+            }
+            if (orgaos != null) {
+                return PartialView("Listar", orgaos);
+            }
+            return View();
+        }
+
         //TODO
         [AllowAnonymous]
         public ActionResult Detalhes(int id) {

@@ -53,11 +53,25 @@ namespace SILCD.Repository.Concrete {
             return retorno;
         }
 
+        IEnumerable<DeputadoViewModel> IDeputadosRepository.List {
+            get {
+                return Listar((int)TipoDataSource.XML);
+            }
+        }
+
+        public DeputadoViewModel Find(int id) {
+            if (id > 0) {
+                return Listar((int)TipoDataSource.XML).ToList().Find(d => d.IdeCadastro.Equals(id));
+            } else {
+                return null;
+            }
+        }
+
         public DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource) {
             try {
                 DeputadoViewModel deputado = Listar(tipoDataSource).Single(d => d.IdeCadastro.Equals(ideCadastro));
                 return deputado;
-            } catch {                
+            } catch {
                 throw new Exception(Messages.RecordNotFound);
             }
         }

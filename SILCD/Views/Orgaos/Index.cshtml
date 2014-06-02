@@ -7,26 +7,110 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formAjax').submit(function () {
+            $("#retornoAjax").empty();
+        });
+        $("input[name='chkFiltroTipo']").click(function () {
+            $("#formAjax").submit();
+        });
+    });
+</script>
+
 <div class="page-header">
     <h2>
         Órgãos Legislativos
         <small>@Constantes.TITULO_SISTEMA.ToString()</small>
-    </h2>    
+    </h2>
 </div>
 
-@using (Html.BeginForm("Index", "Orgaos", FormMethod.Post, new { @id = "form", @name = "form", @role = "form" })) {
-    @Html.Grid(Model).Columns(columns => {
-            columns.Add()
-        .Encoded(false)
-        .Sanitized(false)
-        .SetWidth(30)
-        .RenderValueAs(o =>
+@*@using (Html.BeginForm("Index", "Orgaos", FormMethod.Post, new { @id = "formFiltro", @name = "formFiltro", @role = "form" })) {
+    <div class="bs-callout bs-callout-info">
+        <h4>Filtros</h4>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Educação">
+                    Educação
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Saúde">
+                    Saúde
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Segurança">
+                    Segurança
+                </label>
+            </div>
+        </div>
+    </div>
+}*@
+
+@*@using (Html.BeginForm("Index", "Orgaos", FormMethod.Post, new { @id = "form", @name = "form", @role = "form" })) {
+        @Html.Grid(Model).Columns(columns => {
+        columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(30)
+    .RenderValueAs(o =>
         @<b>
-             <a class="btn btn-info" href="@Url.Action("Detalhes/" + o.Id, "Orgaos")" title="Detalhes do Órgão"><span class="glyphicon glyphicon-list"></span></a>
-        </b>); 
-    columns.Add(o => o.Id).Titled("Id").Sortable(true).Filterable(true);
-    columns.Add(o => o.TipoOrgao.Descricao).Titled("Tipo de Órgão").Sortable(true).Filterable(true);
-    columns.Add(o => o.Sigla).Titled("Sigla").Sortable(true).Filterable(true);
-    columns.Add(o => o.Descricao).Titled("Descrição").Sortable(true).Filterable(true);
-}).WithPaging(5).Filterable(true).Sortable(true);
+            <a class="btn btn-info" href="@Url.Action("Detalhes/" + o.Id, "Orgaos")" title="Detalhes do Órgão"><span class="glyphicon glyphicon-list"></span></a>
+        </b>);
+        columns.Add(o => o.Id).Titled("Id").Sortable(true).Filterable(true);
+        columns.Add(o => o.TipoOrgao.Descricao).Titled("Tipo de Órgão").Sortable(true).Filterable(true);
+        columns.Add(o => o.Sigla).Titled("Sigla").Sortable(true).Filterable(true);
+        columns.Add(o => o.Descricao).Titled("Descrição").Sortable(true).Filterable(true);
+        }).WithPaging(5).Filterable(true).Sortable(true);
+    }*@
+
+@using (Ajax.BeginForm("Listar", "Orgaos", new AjaxOptions {
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "retornoAjax",
+    LoadingElementId = "loader"
+
+
+}, new { @id = "formAjax", @name = "formAjax", @class = "form-inline", @role = "form" })) {
+    <div class="bs-callout bs-callout-info">
+        <h4>Filtros</h4>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Educação">
+                    Educação
+                </label>
+            </div>&nbsp;
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Saúde">
+                    Saúde
+                </label>
+            </div>&nbsp;
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Segurança">
+                    Segurança
+                </label>
+            </div>&nbsp;
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="chkFiltroTipo" value="Transporte">
+                    Transporte
+                </label>
+            </div>
+        </div>
+    </div>
+        
+    <div id="loader" style="display: none;">
+        <img src="~/Content/images/ajax-loader.gif" />
+        Carregando
+    </div>
+}
+
+@{
+    Html.RenderPartial("Listar");
 }

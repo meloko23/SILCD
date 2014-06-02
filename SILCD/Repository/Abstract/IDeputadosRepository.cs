@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 namespace SILCD.Repository.Abstract {
     public interface IDeputadosRepository {
 
+        IEnumerable<DeputadoViewModel> List { get; }
+
+        DeputadoViewModel Find(int id);
+
         List<DeputadoViewModel> Listar(int tipoDataSource);
 
         DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource);

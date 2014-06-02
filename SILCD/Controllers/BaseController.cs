@@ -14,8 +14,7 @@ namespace SILCD.Controllers
         {
             Exception e = filterContext.Exception;
             filterContext.ExceptionHandled = true;
-            filterContext.Result = new ViewResult()
-            {
+            filterContext.Result = new ViewResult() {
                 ViewName = "Error"
             };
         }
