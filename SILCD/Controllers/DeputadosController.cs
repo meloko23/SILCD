@@ -12,14 +12,14 @@ using SILCD.Repository.Abstract;
 using SILCD.Helper;
 using SILCD.Enum;
 using SILCD.Resources;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace SILCD.Controllers {
     public class DeputadosController : BaseController {
 
         private IDeputadosRepository repositorio;
         private List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
-        private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
-        private List<SessaoViewModels> listaSessaoParlamentar;
 
         public DeputadosController(IDeputadosRepository _repositorio) {
             if (repositorio == null) {
@@ -78,7 +78,7 @@ namespace SILCD.Controllers {
             try {
                 var deputado = repositorio.Buscar(id, (int)TipoDataSource.XML);
                 BuscarDetalhes(deputado);
-                //PreencherPresencaParlamentar(deputado, null, null); //TODO (está com erro, analisar problema)
+                PreencherPresencaParlamentar(deputado, null, null); //TODO (está com erro, analisar problema)
                 if (deputado == null) {
                     return HttpNotFound();
                 }
@@ -102,7 +102,8 @@ namespace SILCD.Controllers {
             }
 
             if (String.IsNullOrEmpty(dataIni)) {
-                dataIni = String.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1));
+                //dataIni = String.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1));
+                dataIni = String.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, 1, 1));
             }
 
             if (String.IsNullOrEmpty(dataFim)) {
@@ -129,6 +130,33 @@ namespace SILCD.Controllers {
                         select new { Partido = g.Key, PartidoCount = g.Count() };
 
             SessionHelper.GravarDistribuicaoPorPartido(query);
+        }
+
+        //// TODO
+        //private void BuscarCotaParlamentar() {
+        //    DataSet dsCotaParlamentar = new DataSet();
+        //    dsCotaParlamentar.ReadXml(Server.MapPath("~/App_GlobalResources/CotaParlamentar2014.xml"));
+        //    DataTable dtCotaParlamentar = dsCotaParlamentar.Tables["DESPESA"];
+        //    bool bInsert = BulkInsertDataTable("CotaParlamentar", dtCotaParlamentar);
+        //    if (bInsert) {
+
+        //    }
+        //}
+
+        private bool BulkInsertDataTable(string tableName, DataTable dataTable) {
+            bool isSuccuss;
+            try {
+                SqlConnection SqlConnectionObj = new SqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ToString());
+                SqlConnectionObj.Open();
+                //SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
+                SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.Default | SqlBulkCopyOptions.UseInternalTransaction, null);
+                bulkCopy.DestinationTableName = tableName;
+                bulkCopy.WriteToServer(dataTable);
+                isSuccuss = true;
+            } catch (Exception ex) {
+                isSuccuss = false;
+            }
+            return isSuccuss;
         }
 
         public ActionResult DistribuicaoPorUF() {

@@ -222,6 +222,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\CotaParlamentar2014.xml" />
     <Content Include="App_GlobalResources\ListarCargosOrgaosLegislativosCD.xml" />
     <Content Include="App_GlobalResources\ListarTiposOrgaos.xml" />
     <Content Include="App_GlobalResources\ObterDeputados.xml" />
@@ -231,25 +232,6 @@
     <Content Include="Content\docs.min.css" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\images\ajax-loader.gif" />
-    <Content Include="DataTables\css\jquery.dataTables.css" />
-    <Content Include="DataTables\css\jquery.dataTables.min.css" />
-    <Content Include="DataTables\css\jquery.dataTables_themeroller.css" />
-    <Content Include="DataTables\css\jquery.dataTables_themeroller.min.css" />
-    <Content Include="DataTables\images\back_disabled.png" />
-    <Content Include="DataTables\images\back_enabled.png" />
-    <Content Include="DataTables\images\back_enabled_hover.png" />
-    <Content Include="DataTables\images\favicon.ico" />
-    <Content Include="DataTables\images\forward_disabled.png" />
-    <Content Include="DataTables\images\forward_enabled.png" />
-    <Content Include="DataTables\images\forward_enabled_hover.png" />
-    <Content Include="DataTables\images\sort_asc.png" />
-    <Content Include="DataTables\images\sort_asc_disabled.png" />
-    <Content Include="DataTables\images\sort_both.png" />
-    <Content Include="DataTables\images\sort_desc.png" />
-    <Content Include="DataTables\images\sort_desc_disabled.png" />
-    <Content Include="DataTables\js\jquery.dataTables.js" />
-    <Content Include="DataTables\js\jquery.dataTables.min.js" />
-    <Content Include="DataTables\js\jquery.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -258,7 +240,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Grid.mvc.readme" />
-    <Content Include="DataTables\images\Sorting icons.psd" />
     <None Include="Properties\PublishProfiles\consultadeputados %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\consultadeputados.pubxml" />
     <None Include="Properties\Settings.settings">
