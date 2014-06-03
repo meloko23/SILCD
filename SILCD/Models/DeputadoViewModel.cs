@@ -26,6 +26,7 @@ namespace SILCD.Models
         private string telefone;
         private string email;
         private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
+        private List<CotaParlamentarViewModels> listaCotaParlamentar;
 
         [Display(Name = "Id do Parlamentar")]
         public int IdParlamentar
@@ -139,6 +140,17 @@ namespace SILCD.Models
                 listaPresencaParlamentar.Add(presencaParlamentar);
             }
         }
+
+        public List<CotaParlamentarViewModels> ListaCotaParlamentar {
+            get { return listaCotaParlamentar; }
+            set { listaCotaParlamentar = value; }
+        }
+
+        public void AdicionaCotaParlamentar(CotaParlamentarViewModels cotaParlamentar) {
+            if (listaCotaParlamentar != null) {
+                listaCotaParlamentar.Add(cotaParlamentar);
+            }
+        } 
 
     }
 

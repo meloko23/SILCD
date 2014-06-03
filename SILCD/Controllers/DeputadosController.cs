@@ -43,6 +43,9 @@ namespace SILCD.Controllers {
                     }
                 }
 
+                //BuscarCotaParlamentar();
+                //readXmlCotaParlamentar();
+
                 if (deputados != null) {
                     return View(deputados);
                 }
@@ -63,6 +66,21 @@ namespace SILCD.Controllers {
                     return HttpNotFound();
                 }
                 return View(deputado);
+            } catch {
+                throw new Exception(Messages.RecordNotFound);
+            }
+        }
+
+        public ActionResult CotaParlamentar(int id = 0) {
+            try {
+                if (id > 0) {
+                    var CotasParlamentares = repositorio.ListarCotaParlamentar(id);
+                    if (CotasParlamentares == null) {
+                        return HttpNotFound();
+                    }
+                    return View(CotasParlamentares);
+                }
+                return View();
             } catch {
                 throw new Exception(Messages.RecordNotFound);
             }
@@ -115,7 +133,7 @@ namespace SILCD.Controllers {
         // TODO
         private void BuscarCotaParlamentar() {
             DataSet dsCotaParlamentar = new DataSet();
-            dsCotaParlamentar.ReadXml(Server.MapPath("~/App_GlobalResources/CotaParlamentar2014.xml"));
+            dsCotaParlamentar.ReadXml(@"C:\Users\fernando.faria\Desktop\AnoAnterior.xml");
             DataTable dtCotaParlamentar = dsCotaParlamentar.Tables["DESPESA"];
             bool bInsert = BulkInsertDataTable("CotaParlamentarNova", dtCotaParlamentar);
             if (bInsert) {
@@ -131,14 +149,120 @@ namespace SILCD.Controllers {
                 SqlConnectionObj.Open();
                 //SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
                 SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.Default | SqlBulkCopyOptions.UseInternalTransaction, null);
-                bulkCopy.BulkCopyTimeout = 999999;
+                bulkCopy.BulkCopyTimeout = 999999999;
                 bulkCopy.DestinationTableName = tableName;
-                bulkCopy.WriteToServer(dataTable);                
+                bulkCopy.WriteToServer(dataTable);
                 isSuccuss = true;
             } catch (Exception ex) {
                 isSuccuss = false;
             }
             return isSuccuss;
+        }
+
+        private List<CotaParlamentarViewModels> readXmlCotaParlamentar() {
+            List<CotaParlamentarViewModels> listaDeCotas = new List<CotaParlamentarViewModels>();
+            try {
+                string XmlFileUrl = @"C:\Users\fernando.faria\Desktop\AnoAnterior.xml";                
+                CotaParlamentarViewModels cotaParlamentar = null;
+                using (XmlReader reader = new XmlTextReader(XmlFileUrl)) {
+                    while (reader.Read()) {
+                        if (reader.NodeType == XmlNodeType.Element) {
+                            switch (reader.Name) {
+                                case "DESPESA":
+                                    if (cotaParlamentar != null) {
+                                        listaDeCotas.Add(cotaParlamentar);
+                                    }
+                                    cotaParlamentar = new CotaParlamentarViewModels();
+                                    break;
+                                case "txNomeParlamentar":
+                                    cotaParlamentar.txNomeParlamentar = reader.ReadContentAsString();
+                                    break;
+                                //case "nuCarteiraParlamentar":
+                                //    cotaParlamentar.nuCarteiraParlamentar = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "nuLegislatura":
+                                //    cotaParlamentar.nuLegislatura = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                case "sgUF":
+                                    cotaParlamentar.sgUF = reader.ReadContentAsString();
+                                    break;
+                                case "sgPartido":
+                                    cotaParlamentar.sgPartido = reader.ReadContentAsString();
+                                    break;
+                                //case "codLegislatura":
+                                //    cotaParlamentar.codLegislatura = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "numSubCota":
+                                //    cotaParlamentar.numSubCota = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                case "txtDescricao":
+                                    cotaParlamentar.txtDescricao = reader.ReadContentAsString();
+                                    break;
+                                //case "numEspecificacaoSubCota":
+                                //    cotaParlamentar.numEspecificacaoSubCota = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                case "txtDescricaoEspecificacao":
+                                    cotaParlamentar.txtDescricaoEspecificacao = reader.ReadContentAsString();
+                                    break;
+                                case "txtFornecedor":
+                                    cotaParlamentar.txtFornecedor = reader.ReadContentAsString();
+                                    break;
+                                case "txtCNPJCPF":
+                                    cotaParlamentar.txtCNPJCPF = reader.ReadContentAsString();
+                                    break;
+                                case "txtNumero":
+                                    cotaParlamentar.txtNumero = reader.ReadContentAsString();
+                                    break;
+                                //case "indTipoDocumento":
+                                //    cotaParlamentar.indTipoDocumento = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "datEmissao":
+                                //    cotaParlamentar.datEmissao = DateTime.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "vlrDocumento":
+                                //    cotaParlamentar.vlrDocumento = decimal.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "vlrGlosa":
+                                //    cotaParlamentar.vlrGlosa = decimal.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "vlrLiquido":
+                                //    cotaParlamentar.vlrLiquido = decimal.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "numMes":
+                                //    cotaParlamentar.numMes = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "numAno":
+                                //    cotaParlamentar.numAno = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "numParcela":
+                                //    cotaParlamentar.numParcela = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                case "txtPassageiro":
+                                    cotaParlamentar.txtPassageiro = reader.ReadContentAsString();
+                                    break;
+                                case "txtTrecho":
+                                    cotaParlamentar.txtTrecho = reader.ReadContentAsString();
+                                    break;
+                                //case "numLote":
+                                //    cotaParlamentar.numLote = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "numRessarcimento":
+                                //    cotaParlamentar.numRessarcimento = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                //case "ideCadastro":
+                                //    cotaParlamentar.ideCadastro = int.Parse(reader.ReadContentAsString());
+                                //    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception erro) {
+                throw new Exception(erro.Message);
+            }
+
+            return listaDeCotas;
         }
 
         public ActionResult DistribuicaoPorUF() {

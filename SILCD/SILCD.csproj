@@ -39,9 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbFactory">
-      <HintPath>..\..\..\Projetos\Web\ASP.NET\MvcAppConsultaProtocolo\MvcAppConsultaProtocolo\bin\DbFactory.dll</HintPath>
-    </Reference>
     <Reference Include="GridMvc">
       <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
@@ -181,6 +178,7 @@
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseViewModels.cs" />
+    <Compile Include="Models\CotaParlamentarViewModels.cs" />
     <Compile Include="Models\DeputadoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OrgaoViewModels.cs" />
@@ -222,7 +220,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\CotaParlamentar2014.xml" />
     <Content Include="App_GlobalResources\ListarCargosOrgaosLegislativosCD.xml" />
     <Content Include="App_GlobalResources\ListarTiposOrgaos.xml" />
     <Content Include="App_GlobalResources\ObterDeputados.xml" />
@@ -268,6 +265,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Orgaos\Detalhes.cshtml" />
     <Content Include="Views\Orgaos\Listar.cshtml" />
+    <Content Include="Views\Deputados\CotaParlamentar.cshtml" />
     <None Include="Web References\comissoes.br.gov.camara.www\comissoes.disco" />
     <Content Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -376,6 +374,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbFactory VS2012\DbFactory\DbFactory.csproj">
+      <Project>{224aeb2c-eefe-4425-902d-0d55d0192dc4}</Project>
+      <Name>DbFactory</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

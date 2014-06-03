@@ -34,14 +34,28 @@ namespace SILCD.Controllers {
         }
 
         public ActionResult Listar() {
+
             var orgaos = repositorio.Listar((int)TipoDataSource.XML);
+
             var filtro = Request["chkFiltroTipo"];
+            var filtros = String.IsNullOrEmpty(filtro) ? null : filtro.Split(',');
+
+            //int qtdFiltros = 0;
+            //var qryFiltros = String.Empty;
+            //foreach (string opcaoFiltro in filtros) {
+            //    qtdFiltros++;
+            //    qryFiltros += "o => o.Descricao.Contains(\"" + opcaoFiltro + "\")";
+            //    qryFiltros += qtdFiltros < filtros.Count() ? " || " : String.Empty;
+            //}
+
             if (!String.IsNullOrEmpty(filtro)) {
                 orgaos = orgaos.Where(o => o.Descricao.Contains(filtro)).ToList();
             }
+
             if (orgaos != null) {
                 return PartialView("Listar", orgaos);
             }
+
             return View();
         }
 

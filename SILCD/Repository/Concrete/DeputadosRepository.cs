@@ -13,6 +13,9 @@ using SILCD.Helper;
 using System.Data;
 using SILCD.Enum;
 using SILCD.Resources;
+using System.Data.SqlClient;
+using System.Configuration;
+using DbFactory.Implementation;
 
 namespace SILCD.Repository.Concrete {
     public class DeputadosRepository : BaseRepository, IDeputadosRepository {
@@ -23,7 +26,11 @@ namespace SILCD.Repository.Concrete {
         private DeputadoViewModel deputado;
         private List<PresencaParlamentarViewModels> listaPresencaParlamentar;
         private List<SessaoViewModels> listaSessaoParlamentar;
+        private List<CotaParlamentarViewModels> listaDeCotaParlamentar = null;       
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DeputadosRepository() {
 
             if (servicosDeputados == null) {
@@ -36,6 +43,11 @@ namespace SILCD.Repository.Concrete {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tipoDataSource"></param>
+        /// <returns></returns>
         public List<DeputadoViewModel> Listar(int tipoDataSource) {
             List<DeputadoViewModel> retorno = null;
             switch (tipoDataSource) {
@@ -53,12 +65,20 @@ namespace SILCD.Repository.Concrete {
             return retorno;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         IEnumerable<DeputadoViewModel> IDeputadosRepository.List {
             get {
                 return Listar((int)TipoDataSource.XML);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public DeputadoViewModel Find(int id) {
             if (id > 0) {
                 return Listar((int)TipoDataSource.XML).ToList().Find(d => d.IdeCadastro.Equals(id));
@@ -67,6 +87,12 @@ namespace SILCD.Repository.Concrete {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ideCadastro"></param>
+        /// <param name="tipoDataSource"></param>
+        /// <returns></returns>
         public DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource) {
             try {
                 DeputadoViewModel deputado = Listar(tipoDataSource).Single(d => d.IdeCadastro.Equals(ideCadastro));
@@ -76,6 +102,11 @@ namespace SILCD.Repository.Concrete {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deputado"></param>
+        /// <returns></returns>
         public DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado) {
             XmlNode deputadosDetalhesXML = servicosDeputados.ObterDetalhesDeputado(deputado.IdeCadastro.ToString(), null);
             foreach (XmlNode node in deputadosDetalhesXML.ChildNodes) {
@@ -89,6 +120,13 @@ namespace SILCD.Repository.Concrete {
             return deputado;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deputado"></param>
+        /// <param name="dataIni"></param>
+        /// <param name="dataFim"></param>
+        /// <returns></returns>
         public DeputadoViewModel PreencherPresencaParlamentar(DeputadoViewModel deputado, string dataIni, string dataFim) {
             XmlNode deputadosPresencaParlamentarXML = servicosSessoesReunioes.ListarPresencasParlamentar(dataIni, dataFim, deputado.Matricula);
             XmlNodeList nodesPresencaParlamentar = deputadosPresencaParlamentarXML.SelectNodes("/diasDeSessoes2/dia");
@@ -123,6 +161,63 @@ namespace SILCD.Repository.Concrete {
 
             deputado.ListaPresencaParlamentar = listaPresencaParlamentar;
             return deputado;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ideCadastro"></param>
+        /// <returns></returns>
+        public List<CotaParlamentarViewModels> ListarCotaParlamentar(int ideCadastro) {
+            if (ideCadastro > 0) {
+                DbConnection db = null;
+                try {
+                    db = new DbConnection("ConnectionString");
+                    db.CommandText = "SELECT * FROM [dbo].[CotaParlamentar] WHERE ideCadastro = @ideCadastro";
+                    db.AddParameter(new SqlParameter("@ideCadastro", ideCadastro));
+                    DataSet dsRetorno = db.GetDataSet();
+                    if (dsRetorno != null && dsRetorno.Tables[0].Rows.Count > 0) {
+                        listaDeCotaParlamentar = new List<CotaParlamentarViewModels>();
+                        foreach (DataRow cotaParlamentarRow in dsRetorno.Tables[0].Rows) {
+                            listaDeCotaParlamentar.Add(new CotaParlamentarViewModels {
+                                Id = int.Parse(cotaParlamentarRow["Id"].ToString()),
+                                txNomeParlamentar = cotaParlamentarRow["txNomeParlamentar"].ToString(),
+                                nuCarteiraParlamentar = cotaParlamentarRow["nuCarteiraParlamentar"] == DBNull.Value ? 0 : (int?)cotaParlamentarRow["nuCarteiraParlamentar"],
+                                nuLegislatura = int.Parse(cotaParlamentarRow["nuLegislatura"].ToString()),
+                                sgUF = cotaParlamentarRow["sgUF"].ToString(),
+                                sgPartido = cotaParlamentarRow["sgPartido"].ToString(),
+                                codLegislatura = cotaParlamentarRow["codLegislatura"] == DBNull.Value ? 0 : (int?)cotaParlamentarRow["codLegislatura"],
+                                numSubCota = int.Parse(cotaParlamentarRow["numSubCota"].ToString()),
+                                txtDescricao = cotaParlamentarRow["txtDescricao"].ToString(),
+                                numEspecificacaoSubCota = int.Parse(cotaParlamentarRow["numEspecificacaoSubCota"].ToString()),
+                                txtDescricaoEspecificacao = cotaParlamentarRow["txtDescricaoEspecificacao"].ToString(),
+                                txtFornecedor = cotaParlamentarRow["txtFornecedor"].ToString(),
+                                txtCNPJCPF = cotaParlamentarRow["txtCNPJCPF"].ToString(),
+                                txtNumero = cotaParlamentarRow["txtNumero"].ToString(),
+                                indTipoDocumento = int.Parse(cotaParlamentarRow["indTipoDocumento"].ToString()),
+                                datEmissao = cotaParlamentarRow["datEmissao"] == DBNull.Value ? new DateTime(1900, 1, 1) : (DateTime?)cotaParlamentarRow["datEmissao"],
+                                vlrDocumento = decimal.Parse(cotaParlamentarRow["vlrDocumento"].ToString()),
+                                vlrGlosa = decimal.Parse(cotaParlamentarRow["vlrGlosa"].ToString()),
+                                vlrLiquido = decimal.Parse(cotaParlamentarRow["vlrLiquido"].ToString()),
+                                numMes = int.Parse(cotaParlamentarRow["numMes"].ToString()),
+                                numAno = int.Parse(cotaParlamentarRow["numAno"].ToString()),
+                                numParcela = int.Parse(cotaParlamentarRow["numParcela"].ToString()),
+                                txtPassageiro = cotaParlamentarRow["txtPassageiro"].ToString(),
+                                txtTrecho = cotaParlamentarRow["txtTrecho"].ToString(),
+                                numLote = int.Parse(cotaParlamentarRow["numLote"].ToString()),
+                                numRessarcimento = int.Parse(cotaParlamentarRow["numRessarcimento"].ToString()),
+                                ideCadastro = int.Parse(cotaParlamentarRow["ideCadastro"].ToString())
+                            });
+                        }
+                    }
+                } catch {
+                    throw new Exception();
+                } finally {
+                    db.Dispose();
+                }
+
+            }
+            return listaDeCotaParlamentar;
         }
 
         /// <summary>

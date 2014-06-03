@@ -29,6 +29,14 @@
         .Sanitized(false)
         .SetWidth(30)
         .RenderValueAs(d =>
+        @<b>
+             <a class="btn btn-info" href="@Url.Action("CotaParlamentar/" + d.IdeCadastro, "Deputados")" title="Cotas Parlamentares 2014"><span class="glyphicon glyphicon-credit-card"></span></a>
+        </b>);             
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(d =>
         @<img src="@d.UrlFoto" class="img-circle" width="30" />
         );
         columns.Add(d => d.IdeCadastro).Titled("Id").Sortable(true).Filterable(true);
