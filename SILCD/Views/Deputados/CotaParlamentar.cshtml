@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SILCD.Models.CotaParlamentarViewModels>
+@using SILCD.Models;
 @using SILCD.Util;
 @using GridMvc.Html;
 
@@ -6,6 +7,12 @@
     ViewBag.Title = "Cota Parlamentar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style type="text/css">
+    .modal-dialog {
+        width: 1024px;
+    }
+</style>
 
 <div class="page-header">
     <h2>
@@ -15,20 +22,146 @@
 </div>
 
 @using (Html.BeginForm("CotaParlamentar", "Deputados", FormMethod.Post, new { @id = "form", @name = "form", @role = "form" })) {
+    <div class="bs-callout bs-callout-info">
+        <h4>Analítico</h4>
+        <a href="@Url.Action("Detalhe/"+Model.First().ideCadastro.ToString())" class="btn btn-primary">
+            <span class="glyphicon glyphicon-user"></span>
+            Deputado
+        </a>
+        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg1"><span class="glyphicon glyphicon-th"></span> Agrupar por Refererência</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2"><span class="glyphicon glyphicon-th-large"></span> Agrupar por Tipo</button>
+    </div>
     @Html.Grid(Model).Columns(columns => {
-        columns.Add(c => c.Id).Titled("Id").Sortable(true).Filterable(true);
-        columns.Add(c => c.txNomeParlamentar).Titled("Nome Parlamentar").Sortable(true).Filterable(true);
-        columns.Add(c => c.sgUF).Titled("UF").Sortable(true).Filterable(true);
-        columns.Add(c => c.sgPartido).Titled("Partido").Sortable(true).Filterable(true);
-        columns.Add(c => c.txtDescricao).Titled("Descrição").Sortable(true).Filterable(true);
-        columns.Add(c => c.datEmissao).Titled("Data Emissão").Sortable(true).Filterable(true);
-        columns.Add(c => c.vlrDocumento).Titled("Vl. Doc.").Sortable(true).Filterable(true).Format("{0:C}");
-        columns.Add(c => c.vlrGlosa).Titled("Vl. Glosa").Sortable(true).Filterable(true).Format("{0:C}");
-        columns.Add(c => c.vlrLiquido).Titled("Vl. Líquido").Sortable(true).Filterable(true).Format("{0:C}");
-        columns.Add()
-        .Encoded(false)
-        .Sanitized(false)
-        .SetWidth(30)
-        .RenderValueAs(c => c.numMes.ToString() + "/" + c.numAno.ToString()).Titled("Referência");
-    }).WithPaging(50).Filterable(true).Sortable(true);
+    columns.Add(c => c.Id).Titled("Id").Sortable(true).Filterable(true);
+    columns.Add(c => c.txNomeParlamentar).Titled("Nome Parlamentar").Sortable(true).Filterable(true);
+    columns.Add(c => c.datEmissao).Titled("Data Emissão").Sortable(true).Filterable(true).Format("{0:dd/MM/yyyy}");
+    columns.Add(c => c.vlrDocumento).Titled("Vl. Doc.").Sortable(true).Filterable(true).Format("{0:C}");
+    columns.Add(c => c.vlrGlosa).Titled("Vl. Glosa").Sortable(true).Filterable(true).Format("{0:C}");
+    columns.Add(c => c.vlrLiquido).Titled("Vl. Líquido").Sortable(true).Filterable(true).Format("{0:C}");
+    columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(30)
+    .RenderValueAs(c => c.numMes.ToString() + "/" + c.numAno.ToString()).Titled("Referência").Sortable(true).Filterable(true);
+}).WithPaging(5).Filterable(true).Sortable(true);
 }
+
+<div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="modalCotaParlamentarPorReferenciaTipo" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="bs-callout bs-callout-info">
+                <h4>Agrupado por Refererência</h4>
+            </div>
+            @using (Html.BeginForm("CotaParlamentar", "Deputados", FormMethod.Post, new { @id = "formPorReferenciaTipo", @name = "formPorReferenciaTipo", @role = "form" })) {
+                @Html.Grid((IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorReferenciaTipo"]).Columns(columns => {
+               columns.Add(c => c.numAno).Titled("Ano Ref.");
+               columns.Add(c => c.numMes).Titled("Mês Ref.");
+               columns.Add(c => c.txtDescricao).Titled("Descrição");
+               columns.Add(c => c.vlrDocumento).Titled("Vl. Doc.").Format("{0:C}");
+               columns.Add(c => c.vlrGlosa).Titled("Vl. Glosa").Format("{0:C}");
+               columns.Add(c => c.vlrLiquido).Titled("Vl. Líquido").Format("{0:C}");
+                }).WithPaging(100);
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="modalCotaParlamentarPorTipo" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="bs-callout bs-callout-info">
+                <h4>Agrupado por Tipo</h4>
+            </div>
+            @using (Html.BeginForm("CotaParlamentar", "Deputados", FormMethod.Post, new { @id = "formPorTipo", @name = "formPorTipo", @role = "form" })) {
+                @Html.Grid((IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]).Columns(columns => {
+               columns.Add(c => c.txtDescricao).Titled("Descrição");
+               columns.Add(c => c.vlrDocumento).Titled("Vl. Doc.").Format("{0:C}");
+               columns.Add(c => c.vlrGlosa).Titled("Vl. Glosa").Format("{0:C}");
+               columns.Add(c => c.vlrLiquido).Titled("Vl. Líquido").Format("{0:C}");
+           }).WithPaging(100);
+            }
+        </div>
+    </div>
+</div>
+@*<table class="table table-bordered table-striped">
+        <tr>
+            <th>
+                <label>Ano Ref.</label>
+            </th>
+            <th>
+                <label>Mês Ref.</label>
+            </th>
+            <th>
+                <label>Descrição</label>
+            </th>
+            <th>
+                <label>Vl. Documento (Soma)</label>
+            </th>
+            <th>
+                <label>Vl. Glosa (Soma)</label>
+            </th>
+            <th>
+                <label>Vl. Líquido (Soma)</label>
+            </th>
+        </tr>
+
+        @foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorReferenciaTipo"]) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numAno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numMes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.txtDescricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrDocumento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrGlosa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrLiquido)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>
+                <label>Descrição</label>
+            </th>
+            <th>
+                <label>Vl. Documento (Soma)</label>
+            </th>
+            <th>
+                <label>Vl. Glosa (Soma)</label>
+            </th>
+            <th>
+                <label>Vl. Líquido (Soma)</label>
+            </th>
+        </tr>
+
+        @foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.txtDescricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrDocumento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrGlosa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vlrLiquido)
+                </td>
+            </tr>
+        }
+
+    </table>*@
+

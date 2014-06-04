@@ -75,6 +75,8 @@ namespace SILCD.Controllers {
             try {
                 if (id > 0) {
                     var CotasParlamentares = repositorio.ListarCotaParlamentar(id);
+                    BuscarCotaParlamentarPorReferenciaTipo(id);
+                    BuscarCotaParlamentarPorTipo(id);
                     if (CotasParlamentares == null) {
                         return HttpNotFound();
                     }
@@ -83,6 +85,24 @@ namespace SILCD.Controllers {
                 return View();
             } catch {
                 throw new Exception(Messages.RecordNotFound);
+            }
+        }
+
+        private void BuscarCotaParlamentarPorReferenciaTipo(int id = 0) {
+            if (id > 0) {
+                var CotasParlamentaresPorReferenciaTipo = repositorio.ListarCotaParlamentarPorReferenciaTipo(id);
+                if (CotasParlamentaresPorReferenciaTipo != null) {
+                    TempData["CotaParlamentarPorReferenciaTipo"] = CotasParlamentaresPorReferenciaTipo;
+                }
+            }
+        }
+
+        private void BuscarCotaParlamentarPorTipo(int id = 0) {
+            if (id > 0) {
+                var CotasParlamentaresPorTipo = repositorio.ListarCotaParlamentarPorTipo(id);
+                if (CotasParlamentaresPorTipo != null) {
+                    TempData["CotaParlamentarPorTipo"] = CotasParlamentaresPorTipo;
+                }
             }
         }
 
@@ -128,35 +148,6 @@ namespace SILCD.Controllers {
                         select new { Partido = g.Key, PartidoCount = g.Count() };
 
             SessionHelper.GravarDistribuicaoPorPartido(query);
-        }
-
-        // TODO
-        private void BuscarCotaParlamentar() {
-            DataSet dsCotaParlamentar = new DataSet();
-            dsCotaParlamentar.ReadXml(@"C:\Users\fernando.faria\Desktop\AnoAnterior.xml");
-            DataTable dtCotaParlamentar = dsCotaParlamentar.Tables["DESPESA"];
-            bool bInsert = BulkInsertDataTable("CotaParlamentarNova", dtCotaParlamentar);
-            if (bInsert) {
-
-            }
-        }
-
-        private bool BulkInsertDataTable(string tableName, DataTable dataTable) {
-            bool isSuccuss;
-            try {
-                //SqlConnection SqlConnectionObj = new SqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ToString());
-                SqlConnection SqlConnectionObj = new SqlConnection(ConfigurationManager.ConnectionStrings["connectionStringAzure"].ToString());
-                SqlConnectionObj.Open();
-                //SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
-                SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnectionObj, SqlBulkCopyOptions.Default | SqlBulkCopyOptions.UseInternalTransaction, null);
-                bulkCopy.BulkCopyTimeout = 999999999;
-                bulkCopy.DestinationTableName = tableName;
-                bulkCopy.WriteToServer(dataTable);
-                isSuccuss = true;
-            } catch (Exception ex) {
-                isSuccuss = false;
-            }
-            return isSuccuss;
         }
 
         private List<CotaParlamentarViewModels> readXmlCotaParlamentar() {

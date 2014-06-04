@@ -172,8 +172,11 @@ namespace SILCD.Repository.Concrete {
             if (ideCadastro > 0) {
                 DbConnection db = null;
                 try {
-                    db = new DbConnection("ConnectionString");
-                    db.CommandText = "SELECT * FROM [dbo].[CotaParlamentar] WHERE ideCadastro = @ideCadastro";
+                    db = new DbConnection("connectionString");
+                    db.CommandText = " SELECT * "+
+                                     " FROM [dbo].[CotaParlamentar] "+
+                                     " WHERE ideCadastro = @ideCadastro " +
+                                     " ORDER BY numAno, numMes, txtDescricao, vlrDocumento, vlrGlosa, vlrLiquido ";
                     db.AddParameter(new SqlParameter("@ideCadastro", ideCadastro));
                     DataSet dsRetorno = db.GetDataSet();
                     if (dsRetorno != null && dsRetorno.Tables[0].Rows.Count > 0) {
@@ -207,6 +210,76 @@ namespace SILCD.Repository.Concrete {
                                 numLote = int.Parse(cotaParlamentarRow["numLote"].ToString()),
                                 numRessarcimento = int.Parse(cotaParlamentarRow["numRessarcimento"].ToString()),
                                 ideCadastro = int.Parse(cotaParlamentarRow["ideCadastro"].ToString())
+                            });
+                        }
+                    }
+                } catch {
+                    throw new Exception();
+                } finally {
+                    db.Dispose();
+                }
+
+            }
+            return listaDeCotaParlamentar;
+        }
+
+        public List<CotaParlamentarViewModels> ListarCotaParlamentarPorReferenciaTipo(int ideCadastro) {
+            if (ideCadastro > 0) {
+                DbConnection db = null;
+                try {
+                    db = new DbConnection("connectionString");
+                    db.CommandText = " SELECT numAno, numMes, UPPER(txtDescricao) [txtDescricao], SUM(vlrDocumento) [vlrDocumento], SUM(vlrGlosa) [vlrGlosa], SUM(vlrLiquido) [vlrLiquido] " +
+                                     " FROM [dbo].[CotaParlamentar] " +
+                                     " WHERE ideCadastro = @ideCadastro " +
+                                     " GROUP BY numAno, numMes, UPPER(txtDescricao) " +
+                                     " ORDER BY numAno, numMes, UPPER(txtDescricao) " ;
+
+                    db.AddParameter(new SqlParameter("@ideCadastro", ideCadastro));
+                    DataSet dsRetorno = db.GetDataSet();
+                    if (dsRetorno != null && dsRetorno.Tables[0].Rows.Count > 0) {
+                        listaDeCotaParlamentar = new List<CotaParlamentarViewModels>();
+                        foreach (DataRow cotaParlamentarRow in dsRetorno.Tables[0].Rows) {
+                            listaDeCotaParlamentar.Add(new CotaParlamentarViewModels {
+                                txtDescricao = cotaParlamentarRow["txtDescricao"].ToString(),
+                                vlrDocumento = decimal.Parse(cotaParlamentarRow["vlrDocumento"].ToString()),
+                                vlrGlosa = decimal.Parse(cotaParlamentarRow["vlrGlosa"].ToString()),
+                                vlrLiquido = decimal.Parse(cotaParlamentarRow["vlrLiquido"].ToString()),
+                                numMes = int.Parse(cotaParlamentarRow["numMes"].ToString()),
+                                numAno = int.Parse(cotaParlamentarRow["numAno"].ToString())
+                            });
+                        }
+                    }
+                } catch {
+                    throw new Exception();
+                } finally {
+                    db.Dispose();
+                }
+
+            }
+            return listaDeCotaParlamentar;
+        }
+
+        public List<CotaParlamentarViewModels> ListarCotaParlamentarPorTipo(int ideCadastro) {
+            if (ideCadastro > 0) {
+                DbConnection db = null;
+                try {
+                    db = new DbConnection("connectionString");
+                    db.CommandText = " SELECT UPPER(txtDescricao) [txtDescricao], SUM(vlrDocumento) [vlrDocumento], SUM(vlrGlosa) [vlrGlosa], SUM(vlrLiquido) [vlrLiquido] " +
+                                     " FROM [dbo].[CotaParlamentar] " +
+                                     " WHERE ideCadastro = @ideCadastro " +
+                                     " GROUP BY UPPER(txtDescricao) " +
+                                     " ORDER BY UPPER(txtDescricao) " ;
+
+                    db.AddParameter(new SqlParameter("@ideCadastro", ideCadastro));
+                    DataSet dsRetorno = db.GetDataSet();
+                    if (dsRetorno != null && dsRetorno.Tables[0].Rows.Count > 0) {
+                        listaDeCotaParlamentar = new List<CotaParlamentarViewModels>();
+                        foreach (DataRow cotaParlamentarRow in dsRetorno.Tables[0].Rows) {
+                            listaDeCotaParlamentar.Add(new CotaParlamentarViewModels {
+                                txtDescricao = cotaParlamentarRow["txtDescricao"].ToString(),
+                                vlrDocumento = decimal.Parse(cotaParlamentarRow["vlrDocumento"].ToString()),
+                                vlrGlosa = decimal.Parse(cotaParlamentarRow["vlrGlosa"].ToString()),
+                                vlrLiquido = decimal.Parse(cotaParlamentarRow["vlrLiquido"].ToString())
                             });
                         }
                     }
