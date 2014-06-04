@@ -106,6 +106,22 @@ namespace SILCD.Controllers {
             }
         }
 
+        [HttpGet]
+        public ActionResult JsonResultBuscarCotaParlamentarPorTipo(int id = 0) {
+            if (id > 0) {
+                var CotasParlamentaresPorTipo = repositorio.ListarCotaParlamentarPorTipo(id);
+                if (CotasParlamentaresPorTipo != null) {
+                    List<string[]> data = new List<string[]>();
+                    data.Add(new[] { "TIPO", "VALOR DOCUMENTO" });
+                    foreach (CotaParlamentarViewModels cota in CotasParlamentaresPorTipo) {
+                        data.Add(new[] { cota.txtDescricao, decimal.Round(cota.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") });
+                    }
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+
         private DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado) {
             if (deputado != null && deputado.IdeCadastro > 0) {
                 return repositorio.BuscarDetalhes(deputado);
@@ -153,7 +169,7 @@ namespace SILCD.Controllers {
         private List<CotaParlamentarViewModels> readXmlCotaParlamentar() {
             List<CotaParlamentarViewModels> listaDeCotas = new List<CotaParlamentarViewModels>();
             try {
-                string XmlFileUrl = @"C:\Users\fernando.faria\Desktop\AnoAnterior.xml";                
+                string XmlFileUrl = @"C:\Users\fernando.faria\Desktop\AnoAnterior.xml";
                 CotaParlamentarViewModels cotaParlamentar = null;
                 using (XmlReader reader = new XmlTextReader(XmlFileUrl)) {
                     while (reader.Read()) {

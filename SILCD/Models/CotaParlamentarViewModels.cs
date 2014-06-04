@@ -21,7 +21,7 @@ namespace SILCD.Models {
         public string txtNumero { get; set; }
         public int? indTipoDocumento { get; set; }
         public DateTime? datEmissao { get; set; }
-        public decimal? vlrDocumento { get; set; }
+        public decimal vlrDocumento { get; set; }
         public decimal? vlrGlosa { get; set; }
         public decimal? vlrLiquido { get; set; }
         public int? numMes { get; set; }

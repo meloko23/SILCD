@@ -30,6 +30,7 @@
         </a>
         <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg1"><span class="glyphicon glyphicon-th"></span> Agrupar por Refererência</button>
         <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2"><span class="glyphicon glyphicon-th-large"></span> Agrupar por Tipo</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg3"><span class="glyphicon glyphicon-signal"></span> Agrupar por Tipo (Gráfico)</button>
     </div>
     @Html.Grid(Model).Columns(columns => {
     columns.Add(c => c.Id).Titled("Id").Sortable(true).Filterable(true);
@@ -60,7 +61,7 @@
                columns.Add(c => c.vlrDocumento).Titled("Vl. Doc.").Format("{0:C}");
                columns.Add(c => c.vlrGlosa).Titled("Vl. Glosa").Format("{0:C}");
                columns.Add(c => c.vlrLiquido).Titled("Vl. Líquido").Format("{0:C}");
-                }).WithPaging(100);
+           }).WithPaging(100);
             }
         </div>
     </div>
@@ -83,85 +84,96 @@
         </div>
     </div>
 </div>
-@*<table class="table table-bordered table-striped">
-        <tr>
-            <th>
-                <label>Ano Ref.</label>
-            </th>
-            <th>
-                <label>Mês Ref.</label>
-            </th>
-            <th>
-                <label>Descrição</label>
-            </th>
-            <th>
-                <label>Vl. Documento (Soma)</label>
-            </th>
-            <th>
-                <label>Vl. Glosa (Soma)</label>
-            </th>
-            <th>
-                <label>Vl. Líquido (Soma)</label>
-            </th>
-        </tr>
 
-        @foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorReferenciaTipo"]) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.numAno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.numMes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.txtDescricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrDocumento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrGlosa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrLiquido)
-                </td>
-            </tr>
-        }
+<div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-labelledby="modalCotaParlamentarPorReferenciaTipoGrafico" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="bs-callout bs-callout-info">
+                <h4>Agrupado por Tipo</h4>
+            </div>
+        </div>
+    </div>
+</div>
 
-    </table>
+@{
+    var dadosGrafico = "['TIPO', 'VALOR DOCUMENTO'] , ";
+    var Qtd = 0;
+}
+@foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
+    Qtd++;
+    dadosGrafico += "['" + item.txtDescricao + "', " + decimal.Round(item.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") + "]";
+    if (Qtd < ((IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]).Count()) {
+        dadosGrafico += " ,";
+    }
+}
 
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>
-                <label>Descrição</label>
-            </th>
-            <th>
-                <label>Vl. Documento (Soma)</label>
-            </th>
-            <th>
-                <label>Vl. Glosa (Soma)</label>
-            </th>
-            <th>
-                <label>Vl. Líquido (Soma)</label>
-            </th>
-        </tr>
+@{
+    List<string[]> arrayDadosGraficos = new List<string[]>();
+    arrayDadosGraficos.Add(new[] { "TIPO", "VALOR DOCUMENTO" });
+    foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
+        arrayDadosGraficos.Add(new[] { item.txtDescricao, decimal.Round(item.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") });
+    }
+}
 
-        @foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.txtDescricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrDocumento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrGlosa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.vlrLiquido)
-                </td>
-            </tr>
-        }
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
 
-    </table>*@
+    //function drawChart() {
 
+    //    var jsonData = null;
+
+    //    $.post('JsonResultBuscarCotaParlamentarPorTipo', {},
+    //           function (data) { jsonData = data; },
+    //           'json');
+
+    //    var data2 = google.visualization.arrayToDataTable(jsonData);
+
+    //    //var data2 = google.visualization.arrayToDataTable([
+    //    //    arrayDadosGraficos
+    //    //]);
+
+    //    var options2 = {
+    //        title: 'TIPO X VALOR DOCUMENTO',
+    //        pieHole: 0.4,
+    //    };
+
+    //    var chart2 = new google.visualization.PieChart(document.getElementById('donutchartTIPO'));
+    //    chart2.draw(data2, options2);
+    //}
+
+    function drawChart() {
+
+        $.get('JsonResultBuscarCotaParlamentarPorTipo/@Model.ToList()[0].ideCadastro.ToString()', {},
+        function (data) {
+            var tdata = new google.visualization.DataTable();
+            var rows = data.length;
+            var cols = data[0].length;
+
+            tdata.addColumn('string', data[0][0]);
+            for (var i = 0; i < cols; i++) {
+                tdata.addColumn('number', data[0][i]);
+            }
+
+            tdata.addRows(data.length);
+            for (var i = 1; i < data.length; i++) {
+                tdata.setCell(i, 0, data[i][0]);
+                for (var j = 1; j < cols; j++) {
+                    var value = parseInt(data[i][j]);
+                    tdata.setCell(i, j, value);
+
+                }
+            }
+
+            var options = {
+                title: 'TIPO X VALOR DOCUMENTO',
+                pieHole: 0.4,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchartTIPO'));
+            chart.draw(tdata, options);
+        });
+    }
+</script>
+<div id="donutchartTIPO" style="width: 900px; height: 500px;"></div>
