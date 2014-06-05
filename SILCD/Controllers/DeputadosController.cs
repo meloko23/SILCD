@@ -59,7 +59,7 @@ namespace SILCD.Controllers {
 
         public ActionResult Detalhe(int id = 0) {
             try {
-                var deputado = repositorio.Buscar(id, (int)TipoDataSource.XML);
+                var deputado = repositorio.Buscar(id);
                 BuscarDetalhes(deputado);
                 PreencherPresencaParlamentar(deputado, null, null); //TODO (está com erro, analisar problema)
                 if (deputado == null) {
@@ -148,7 +148,7 @@ namespace SILCD.Controllers {
         }
 
         private void BuscarDistribuicaoPorUF() {
-            var deputados = repositorio.Listar((int)TipoDataSource.XML).ToList();
+            var deputados = repositorio.Listar().ToList();
             var query = from d in deputados
                         group d by d.Uf into g
                         select new { Uf = g.Key, UfCount = g.Count() };
@@ -158,7 +158,7 @@ namespace SILCD.Controllers {
         }
 
         private void BuscarDistribuicaoPorPartido() {
-            var deputados = repositorio.Listar((int)TipoDataSource.XML).ToList();
+            var deputados = repositorio.Listar().ToList();
             var query = from d in deputados
                         group d by d.Partido into g
                         select new { Partido = g.Key, PartidoCount = g.Count() };

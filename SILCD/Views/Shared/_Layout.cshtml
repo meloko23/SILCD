@@ -9,6 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div id="Topo"></div>
     <div class="navbar navbar-default navbar-fixed-top">
         <span class="badge pull-right" style="margin:15px;">beta</span>
         <div class="container">
@@ -52,6 +53,7 @@
                             </li>
                         </ul>
                     </li>
+                    <li><a href="@Url.Action("About", "Home")">Sobre</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" role="search" action="@Url.Action("Index", "Deputados")">
                     <div class="form-group">

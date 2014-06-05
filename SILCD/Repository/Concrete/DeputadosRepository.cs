@@ -43,26 +43,8 @@ namespace SILCD.Repository.Concrete {
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tipoDataSource"></param>
-        /// <returns></returns>
-        public List<DeputadoViewModel> Listar(int tipoDataSource) {
-            List<DeputadoViewModel> retorno = null;
-            switch (tipoDataSource) {
-
-                case (int)TipoDataSource.DATA_BASE:
-                    retorno = ListarPorBD();
-                    break;
-                case (int)TipoDataSource.XML:
-                    retorno = ListarPorXml();
-                    break;
-                case (int)TipoDataSource.WEBSERVICE:
-                    retorno = ListarPorWebService();
-                    break;
-            }
-            return retorno;
+        public List<DeputadoViewModel> Listar() {
+            return ListarPorXml();
         }
 
         /// <summary>
@@ -70,7 +52,7 @@ namespace SILCD.Repository.Concrete {
         /// </summary>
         IEnumerable<DeputadoViewModel> IDeputadosRepository.List {
             get {
-                return Listar((int)TipoDataSource.XML);
+                return Listar();
             }
         }
 
@@ -81,7 +63,7 @@ namespace SILCD.Repository.Concrete {
         /// <returns></returns>
         public DeputadoViewModel Find(int id) {
             if (id > 0) {
-                return Listar((int)TipoDataSource.XML).ToList().Find(d => d.IdeCadastro.Equals(id));
+                return Listar().ToList().Find(d => d.IdeCadastro.Equals(id));
             } else {
                 return null;
             }
@@ -91,11 +73,10 @@ namespace SILCD.Repository.Concrete {
         /// 
         /// </summary>
         /// <param name="ideCadastro"></param>
-        /// <param name="tipoDataSource"></param>
         /// <returns></returns>
-        public DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource) {
+        public DeputadoViewModel Buscar(int ideCadastro) {
             try {
-                DeputadoViewModel deputado = Listar(tipoDataSource).Single(d => d.IdeCadastro.Equals(ideCadastro));
+                DeputadoViewModel deputado = Listar().Single(d => d.IdeCadastro.Equals(ideCadastro));
                 return deputado;
             } catch {
                 throw new Exception(Messages.RecordNotFound);
@@ -294,60 +275,6 @@ namespace SILCD.Repository.Concrete {
         }
 
         /// <summary>
-        /// Lista do banco
-        /// </summary>
-        /// <returns></returns>
-        List<DeputadoViewModel> ListarPorBD() {
-            return null;
-            //try {
-            //    DeputadoViewModel deputado;
-            //    List<DeputadoViewModel> deputados = new List<DeputadoViewModel>();
-
-            //    db.CommandText = " SELECT  ideCadastro ," +
-            //                     "        condicao ," +
-            //                     "        matricula ," +
-            //                     "        idParlamentar ," +
-            //                     "        nome ," +
-            //                     "        nomeParlamentar ," +
-            //                     "        urlFoto ," +
-            //                     "        sexo ," +
-            //                     "        uf ," +
-            //                     "        partido ," +
-            //                     "        gabinete ," +
-            //                     "        anexo ," +
-            //                     "        fone ," +
-            //                     "        email" +
-            //                     " FROM dbo.Deputados";
-            //    DataSet dsResultado = db.GetDataSet();
-            //    if (dsResultado != null) {
-            //        foreach (DataRow deputadoRow in dsResultado.Tables[0].Rows) {
-            //            deputado = new DeputadoViewModel();
-            //            deputado.IdeCadastro = int.Parse(deputadoRow["ideCadastro"].ToString());
-            //            deputado.Condicao = deputadoRow["condicao"].ToString();
-            //            deputado.Matricula = deputadoRow["matricula"].ToString();
-            //            deputado.IdParlamentar = int.Parse(deputadoRow["idParlamentar"].ToString());
-            //            deputado.Nome = deputadoRow["nome"].ToString();
-            //            deputado.NomeParlamentar = deputadoRow["nomeParlamentar"].ToString();
-            //            deputado.UrlFoto = deputadoRow["urlFoto"].ToString();
-            //            deputado.Sexo = deputadoRow["sexo"].ToString();
-            //            deputado.Uf = deputadoRow["uf"].ToString();
-            //            deputado.Partido = deputadoRow["partido"].ToString();
-            //            deputado.Gabinete = deputadoRow["gabinete"].ToString();
-            //            deputado.Anexo = deputadoRow["anexo"].ToString();
-            //            deputado.Telefone = deputadoRow["fone"].ToString();
-            //            deputado.Email = deputadoRow["email"].ToString();
-
-            //            deputados.Add(deputado);
-            //        }
-            //    }
-
-            //    return deputados;
-            //} catch {
-            //    return null;
-            //}
-        }
-
-        /// <summary>
         /// Lista do XML
         /// </summary>
         /// <returns></returns>
@@ -384,49 +311,6 @@ namespace SILCD.Repository.Concrete {
             }
 
             return SessionHelper.ObterDeputados();
-        }
-
-        /// <summary>
-        /// Lista do Webservice
-        /// </summary>
-        /// <returns></returns>
-        List<DeputadoViewModel> ListarPorWebService() {
-
-            if (SessionHelper.ObterDeputados() == null) {
-                XmlNode deputadosXML = servicosDeputados.ObterDeputados();
-
-                if (deputadosXML != null && deputadosXML.ChildNodes.Count > 0) {
-
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(deputadosXML.OuterXml);
-                    XmlNodeList xmlList = xmlDoc.SelectNodes("/deputados/deputado");
-
-                    foreach (XmlNode nodeDeputado in xmlList) {
-                        deputado = new DeputadoViewModel();
-                        deputado.IdeCadastro = int.Parse(nodeDeputado["ideCadastro"].InnerText);
-                        deputado.Condicao = nodeDeputado["condicao"].InnerText;
-                        deputado.Matricula = nodeDeputado["matricula"].InnerText;
-                        deputado.IdParlamentar = int.Parse(nodeDeputado["idParlamentar"].InnerText);
-                        deputado.Nome = nodeDeputado["nome"].InnerText;
-                        deputado.NomeParlamentar = nodeDeputado["nomeParlamentar"].InnerText;
-                        deputado.UrlFoto = nodeDeputado["urlFoto"].InnerText;
-                        deputado.Sexo = nodeDeputado["sexo"].InnerText;
-                        deputado.Uf = nodeDeputado["uf"].InnerText;
-                        deputado.Partido = nodeDeputado["partido"].InnerText;
-                        deputado.Gabinete = nodeDeputado["gabinete"].InnerText;
-                        deputado.Telefone = nodeDeputado["fone"].InnerText;
-                        deputado.Email = nodeDeputado["email"].InnerText;
-
-                        deputados.Add(deputado);
-                    }
-
-                }
-
-                SessionHelper.ArmazenarDeputados(deputados);
-            }
-
-            return SessionHelper.ObterDeputados();
-
         }
 
         ~DeputadosRepository() {

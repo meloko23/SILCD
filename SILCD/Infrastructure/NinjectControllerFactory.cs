@@ -23,6 +23,7 @@ namespace SILCD.Infrastructure {
         private void AddBindings() {
             ninjectKernel.Bind<IDeputadosRepository>().To<DeputadosRepository>();
             ninjectKernel.Bind<IOrgaosRepository>().To<OrgaosRepository>();
+            ninjectKernel.Bind<ICotaParlamentarRepository>().To<CotaParlamentarRepository>();
         }
 
         public void Dispose()

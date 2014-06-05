@@ -166,6 +166,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CotaParlamentarController.cs" />
     <Compile Include="Controllers\DeputadosController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,9 +193,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Abstract\ICotaParlamentarRepository.cs" />
     <Compile Include="Repository\Abstract\IDeputadosRepository.cs" />
     <Compile Include="Repository\Abstract\IOrgaosRepository.cs" />
     <Compile Include="Repository\Concrete\BaseRepository.cs" />
+    <Compile Include="Repository\Concrete\CotaParlamentarRepository.cs" />
     <Compile Include="Repository\Concrete\DeputadosRepository.cs" />
     <Compile Include="Repository\Concrete\OrgaosRepository.cs" />
     <Compile Include="Resources\Messages1.Designer.cs">
@@ -321,6 +324,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\CotaParlamentar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

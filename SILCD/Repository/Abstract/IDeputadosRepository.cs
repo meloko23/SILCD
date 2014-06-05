@@ -12,9 +12,9 @@ namespace SILCD.Repository.Abstract {
 
         DeputadoViewModel Find(int id);
 
-        List<DeputadoViewModel> Listar(int tipoDataSource);
+        List<DeputadoViewModel> Listar();
 
-        DeputadoViewModel Buscar(int ideCadastro, int tipoDataSource);
+        DeputadoViewModel Buscar(int ideCadastro);
 
         DeputadoViewModel BuscarDetalhes(DeputadoViewModel deputado);
 
