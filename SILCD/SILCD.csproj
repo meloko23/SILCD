@@ -182,6 +182,7 @@
     <Compile Include="Models\DeputadoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OrgaoViewModels.cs" />
+    <Compile Include="Models\PieChartViewModels.cs" />
     <Compile Include="Models\PresencaParlamentarViewModels.cs" />
     <Compile Include="Models\SessaoViewModels.cs" />
     <Compile Include="Models\TipoOrgaoViewModels.cs" />

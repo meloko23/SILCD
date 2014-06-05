@@ -107,16 +107,16 @@ namespace SILCD.Controllers {
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult JsonResultBuscarCotaParlamentarPorTipo(int id = 0) {
             if (id > 0) {
                 var CotasParlamentaresPorTipo = repositorio.ListarCotaParlamentarPorTipo(id);
                 if (CotasParlamentaresPorTipo != null) {
-                    List<string[]> data = new List<string[]>();
-                    data.Add(new[] { "TIPO", "VALOR DOCUMENTO" });
+                    List<PieChartViewModels> data = new List<PieChartViewModels>();
                     foreach (CotaParlamentarViewModels cota in CotasParlamentaresPorTipo) {
-                        data.Add(new[] { cota.txtDescricao, decimal.Round(cota.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") });
+                        data.Add(new PieChartViewModels() { Name = cota.txtDescricao, valor = cota.vlrDocumento });
                     }
-                    return Json(data);
+                    return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
             return null;

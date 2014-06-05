@@ -95,85 +95,28 @@
     </div>
 </div>
 
-@{
-    var dadosGrafico = "['TIPO', 'VALOR DOCUMENTO'] , ";
-    var Qtd = 0;
-}
-@foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
-    Qtd++;
-    dadosGrafico += "['" + item.txtDescricao + "', " + decimal.Round(item.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") + "]";
-    if (Qtd < ((IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]).Count()) {
-        dadosGrafico += " ,";
-    }
-}
-
-@{
-    List<string[]> arrayDadosGraficos = new List<string[]>();
-    arrayDadosGraficos.Add(new[] { "TIPO", "VALOR DOCUMENTO" });
-    foreach (var item in (IEnumerable<CotaParlamentarViewModels>)TempData["CotaParlamentarPorTipo"]) {
-        arrayDadosGraficos.Add(new[] { item.txtDescricao, decimal.Round(item.vlrDocumento, 2, MidpointRounding.AwayFromZero).ToString().Replace(",", ".") });
-    }
-}
-
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
-    google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawVisualization);
 
-    //function drawChart() {
+    function drawVisualization() {
+        $.get('../JsonResultBuscarCotaParlamentarPorTipo/@Model.ToList()[0].ideCadastro.ToString()', {},
+            function (data) {
 
-    //    var jsonData = null;
+                var tdata = new google.visualization.DataTable();
 
-    //    $.post('JsonResultBuscarCotaParlamentarPorTipo', {},
-    //           function (data) { jsonData = data; },
-    //           'json');
+                tdata.addColumn('string', 'txtDescricao');
+                tdata.addColumn('number', 'vlrDocumento');
 
-    //    var data2 = google.visualization.arrayToDataTable(jsonData);
-
-    //    //var data2 = google.visualization.arrayToDataTable([
-    //    //    arrayDadosGraficos
-    //    //]);
-
-    //    var options2 = {
-    //        title: 'TIPO X VALOR DOCUMENTO',
-    //        pieHole: 0.4,
-    //    };
-
-    //    var chart2 = new google.visualization.PieChart(document.getElementById('donutchartTIPO'));
-    //    chart2.draw(data2, options2);
-    //}
-
-    function drawChart() {
-
-        $.get('JsonResultBuscarCotaParlamentarPorTipo/@Model.ToList()[0].ideCadastro.ToString()', {},
-        function (data) {
-            var tdata = new google.visualization.DataTable();
-            var rows = data.length;
-            var cols = data[0].length;
-
-            tdata.addColumn('string', data[0][0]);
-            for (var i = 0; i < cols; i++) {
-                tdata.addColumn('number', data[0][i]);
-            }
-
-            tdata.addRows(data.length);
-            for (var i = 1; i < data.length; i++) {
-                tdata.setCell(i, 0, data[i][0]);
-                for (var j = 1; j < cols; j++) {
-                    var value = parseInt(data[i][j]);
-                    tdata.setCell(i, j, value);
-
+                for (var i = 0; i < data.length; i++) {
+                    tdata.addRow([data[i].Name, data[i].valor]);
                 }
+
+                new google.visualization.PieChart(document.getElementById('donutchartTIPO')).
+                    draw(tdata, { title: "TIPO vs VALOR DOCUMENTO", pieHole: 0.4 });
             }
-
-            var options = {
-                title: 'TIPO X VALOR DOCUMENTO',
-                pieHole: 0.4,
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('donutchartTIPO'));
-            chart.draw(tdata, options);
-        });
-    }
+    )
+    };
 </script>
 <div id="donutchartTIPO" style="width: 900px; height: 500px;"></div>
