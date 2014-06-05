@@ -6,23 +6,72 @@
         margin-top: 15px;
     }
 </style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChartCotaReferencia);
+    function drawChartCotaReferencia() {
+        var data = google.visualization.arrayToDataTable([
+          ['Referência', 'Cota Parlamentar', { role: 'style' }],
+          ['Janeiro', 12168541.02, '#99CCFF'],
+          ['Fevereiro', 13730125.39, '#6699CC'],
+          ['Março', 13603209.75, '#336699'],
+          ['Abril', 11811230.31, '#003399'],
+          ['Maio', 6097828.40, '#3366CC']
+        ]);
 
-<div class="panel panel-default">
-    <div class="panel-heading"><strong>Acesso rápido</strong></div>
-    <div class="panel-body">
-        <a href="@Url.Action("Index","Deputados")" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-user"></span>
-            Deputados
-        </a>
-        <a href="@Url.Action("Index","Orgaos")" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-th"></span>
-            Órgãos Legislativos
-        </a>
-    </div>
+        var options = {
+            title: 'Cota Parlamentar 1º Semestre 2014',
+            legend: 'none'
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_cota_referencia'));
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="page-header">
+    <h2>
+        Dashboard
+    </h2>
 </div>
 
-<div class="jumbotron">
-    <h2><strong>SISTEMA DE INFORMAÇÕES LEGISLATIVAS DA CÂMARA DOS DEPUTADOS</strong></h2>
-    <p class="lead">Sistema que tem o objetivo de disponibilizar Informações Legislativas da Câmara dos Deputados e com isso permitir um acompanhamento por parte da <strong>População Brasileira</strong>.</p>
-    <p><a href="http://dados.gov.br/dataset/informacoes-legislativas-da-camara-dos-deputados" class="btn btn-primary btn-large" target="_blank">As informações do sistema foram obtidas através do portal <strong>DADOS ABERTOS (dados.gov.br)</strong></a></p>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong>Cota Parlamentar 1º Semestre 2014</strong></div>
+            <div class="panel-body">
+                <div id="chart_div_cota_referencia" style="height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong>Top 10 (Maiores gastos)</strong></div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">1</span>
+                        LIRA MAIA	322736.7700
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">1</span>
+                        LIRA MAIA	322736.7700
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">1</span>
+                        LIRA MAIA	322736.7700
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">1</span>
+                        LIRA MAIA	322736.7700
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">1</span>
+                        LIRA MAIA	322736.7700
+                    </li
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
