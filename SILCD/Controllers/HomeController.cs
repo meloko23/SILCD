@@ -10,6 +10,10 @@ namespace SILCD.Controllers {
             return View();
         }
 
+        public ActionResult LandingPage() {
+            return View();
+        }
+
         public ActionResult Sobre() {
             ViewBag.Message = "Your application description page.";
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Informações Legislativas da Câmara dos Deputados</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/CarroisGothicCss")
     @Styles.Render("~/Content/cssgridmvc")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -14,8 +15,8 @@
         <span class="badge pull-right" style="margin:15px;">beta</span>
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("SILCD.", "Index", "Home", null, new { @class = "navbar-brand title" })
-                <small>@*Sistema de Informações Legislativas da Câmara dos Deputados*@</small>
+                @Html.ActionLink("Silcd", "Index", "Home", null, new { @class = "navbar-brand title bold" })
+                <small id="smallTitle">Sistema de Informações Legislativas da Câmara dos Deputados</small>
             </div>
             <div class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
@@ -73,10 +74,11 @@
         @RenderSection("scripts", required: false)
 
         @RenderBody()
-        <hr />
-        <footer class="footer text-center">
-            <p>&copy; @DateTime.Now.Year - Sistema de Informações Legislativas da Câmara dos Deputados</p>
-        </footer>
+        <div class="navbar navbar-default navbar-fixed-bottom">
+            <footer class="footer panel-footer text-center">
+                <p>&copy; @DateTime.Now.Year - Sistema de Informações Legislativas da Câmara dos Deputados</p>
+            </footer>
+        </div>
     </div>
 
 </body>

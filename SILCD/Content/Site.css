@@ -1,6 +1,19 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Carrois Gothic', serif;
+}
+
+.navbar {
+    background-color: #f9faf7;
+}
+
+    .navbar footer {
+        background-color: #f9faf7;
+    }
+
+.bold {
+    font-weight: bolder;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -9,11 +22,26 @@
     padding-right: 15px;
 }
 
+#smallTitle  {
+    float: left;
+    margin-top: 18px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+    font-family: 'Carrois Gothic', serif;
+}
+text{
+    font-family: 'Carrois Gothic', serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Carrois Gothic', serif;
+    font-weight: 500;
+    line-height: 1.1;
 }
 
 /* styles for validation helpers */
@@ -79,9 +107,8 @@ span.area {
 }
 
 .detalhes-deputado {
-    
 }
 
-.detalhes-deputado dd {
-    margin-bottom:7px;    
-}
+    .detalhes-deputado dd {
+        margin-bottom: 7px;
+    }
