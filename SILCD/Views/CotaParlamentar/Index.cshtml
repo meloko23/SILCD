@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Cotas Parlamentares";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChartCotaReferencia);
+    function drawChartCotaReferencia() {
+        var data = google.visualization.arrayToDataTable([
+          ['Referência', 'Cota Parlamentar', { role: 'style' }],
+          ['Janeiro', 12168541.02, '#99CCFF'],
+          ['Fevereiro', 13730125.39, '#6699CC'],
+          ['Março', 13603209.75, '#336699'],
+          ['Abril', 11811230.31, '#003399'],
+          ['Maio', 6097828.40, '#3366CC']
+        ]);
+
+        var formatter = new google.visualization.NumberFormat(
+            { prefix: '$' }
+        );
+        formatter.format(data, 1);
+
+        var options = {
+            title: 'Cota Parlamentar 1º Semestre 2014',
+            legend: 'none',
+            vAxis: { format: '$###,###,###.00' }, // Money format
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_cota_referencia'));
+        chart.draw(data, options);
+    }
+
+    google.setOnLoadCallback(drawVisualization);
+    function drawVisualization() {
+        $.get('@Url.Action("JsonResultBuscarCotaParlamentarPorTipo")', {},
+            function (data) {
+
+                var tdata = new google.visualization.DataTable();
+
+                tdata.addColumn('string', 'txtDescricao');
+                tdata.addColumn('number', 'vlrDocumento');
+
+                for (var i = 0; i < data.length; i++) {
+                    tdata.addRow([data[i].Name, data[i].valor]);
+                }
+
+                new google.visualization.PieChart(document.getElementById('donutchartTIPO')).
+                    draw(tdata, { title: "TIPO DESPESA vs VALOR GASTO", pieHole: 0.4 });
+            }
+        )
+    };
+
+</script>
+
+<div class="page-header">
+    <h2>
+        Cotas Parlamentares
+        <small>@SILCD.Util.Constantes.TITULO_SISTEMA.ToString()</small>
+    </h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Gastos/Mês 1º Semestre 2014</strong></div>
+            <div class="panel-body">
+                <div id="chart_div_cota_referencia" style="height:243px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading"><strong>Top 5 [Deputados gastaram mais em 2014]</strong></div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>PARTIDO</th>
+                            <th>VALOR GASTO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/141462", "Deputados")" title="Detalhes de Cotas Parlamentares">LIRA MAIA</a></td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/160518", "Deputados")" title="Detalhes de Cotas Parlamentares">WELITON PRADO</a></td>
+                            <td>PT</td>
+                            <td>R$ 242.392,65</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/141386", "Deputados")" title="Detalhes de Cotas Parlamentares">EUDES XAVIER</a></td>
+                            <td>PT</td>
+                            <td>R$ 235.502,05</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/160645", "Deputados")" title="Detalhes de Cotas Parlamentares">LUIZ CARLOS</a></td>
+                            <td>PSDB</td>
+                            <td>R$ 234.434,60</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/160579", "Deputados")" title="Detalhes de Cotas Parlamentares">ALEXANDRE ROSO</a></td>
+                            <td>PSB</td>
+                            <td>R$ 216.763,71</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Gastos/Tipo 1º Semestre 2014</strong></div>
+            <div class="panel-body">
+                <div id="donutchartTIPO" style="width: 700px; height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading"><strong>Top 5 [Deputados gastaram menos em 2014]</strong></div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>PARTIDO</th>
+                            <th>VALOR GASTO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/74580", "Deputados")" title="Detalhes de Cotas Parlamentares">EDMAR MOREIRA</a></td>
+                            <td>DEM</td>
+                            <td>R$ 59,44</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/161906", "Deputados")" title="Detalhes de Cotas Parlamentares">LUIZ OTAVIO</a></td>
+                            <td>PT</td>
+                            <td>R$ 902,07</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/160541", "Deputados")" title="Detalhes de Cotas Parlamentares">ARTHUR LIRA</a></td>
+                            <td>PT</td>
+                            <td>R$ 1.031,76</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/74862", "Deputados")" title="Detalhes de Cotas Parlamentares">MIRO TEIXEIRA</a></td>
+                            <td>PSDB</td>
+                            <td>R$ 1.163,01</td>
+                        </tr>
+                        <tr>
+                            <td><a href="@Url.Action("CotaParlamentar/74802", "Deputados")" title="Detalhes de Cotas Parlamentares">MAGELA</a></td>
+                            <td>PSB</td>
+                            <td>R$ 1.167,55</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

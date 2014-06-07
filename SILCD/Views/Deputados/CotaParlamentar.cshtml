@@ -104,17 +104,18 @@
                 }
 
                 new google.visualization.PieChart(document.getElementById('donutchartTIPO')).
-                    draw(tdata, { title: "TIPO vs VALOR DOCUMENTO", pieHole: 0.4 });
+                    draw(tdata, { title: "TIPO DESPESA vs VALOR GASTO", pieHole: 0.4 });
             }
-    )
+        )
     };
 </script>
 <div id="GraficoPorTipo" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">TIPO DESPESA vs VALOR GASTO</h3>
+        <a href="#Topo" class="btn btn-primary" style="float: right; margin-top:-26px; margin-right:-14px;"><span class="glyphicon glyphicon-arrow-up"></span> Topo</a>
+    </div>
     <div class="panel-body">
         <div id="donutchartTIPO" style="width: 900px; height: 500px;"></div>
     </div>
-    <div class="panel-footer">
-        TIPO vs VALOR DOCUMENTO
-        <a href="#Topo" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-arrow-up"></span> Topo</a>
-    </div>
 </div>
+

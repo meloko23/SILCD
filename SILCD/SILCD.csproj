@@ -295,6 +295,7 @@
     <Content Include="Views\Deputados\CotaParlamentar.cshtml" />
     <Content Include="Views\Deputados\ListarPorNome.cshtml" />
     <Content Include="Views\Home\LandingPage.cshtml" />
+    <Content Include="Views\CotaParlamentar\Index.cshtml" />
     <None Include="Web References\comissoes.br.gov.camara.www\comissoes.disco" />
     <Content Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -349,7 +350,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\CotaParlamentar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

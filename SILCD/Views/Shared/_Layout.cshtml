@@ -15,7 +15,7 @@
         <span class="badge pull-right" style="margin:15px;">beta</span>
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("Silcd", "Index", "Home", null, new { @class = "navbar-brand title bold" })
+                @Html.ActionLink("silcd", "Index", "Home", null, new { @class = "navbar-brand title" })
                 <small id="smallTitle">Sistema de Informações Legislativas da Câmara dos Deputados</small>
             </div>
             <div class="navbar-collapse collapse pull-right">
@@ -54,7 +54,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="@Url.Action("Sobre", "Home")">Sobre</a></li>
+                    <li><a href="@Url.Action("Index", "CotaParlamentar")">Cotas Parlamentares</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" role="search" action="@Url.Action("Index", "Deputados")">
                     <div class="form-group">
@@ -74,11 +74,11 @@
         @RenderSection("scripts", required: false)
 
         @RenderBody()
-        <div class="navbar navbar-default navbar-fixed-bottom">
-            <footer class="footer panel-footer text-center">
-                <p>&copy; @DateTime.Now.Year - Sistema de Informações Legislativas da Câmara dos Deputados</p>
-            </footer>
-        </div>
+        <hr />
+        <footer class="footer text-center">
+            <p>&copy; @DateTime.Now.Year - Sistema de Informações Legislativas da Câmara dos Deputados</p>
+        </footer>
+
     </div>
 
 </body>
