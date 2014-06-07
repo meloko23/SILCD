@@ -230,9 +230,15 @@
     <Content Include="App_GlobalResources\ObterOrgaos.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CarroisGothic\CarroisGothic.css" />
+    <Content Include="Content\CarroisGothic\images\ajax-loader.gif" />
+    <Content Include="Content\CarroisGothic\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\CarroisGothic\images\glyphicons-halflings.png" />
+    <Content Include="Content\CarroisGothic\images\logoPostalisTransparenteG.png" />
     <Content Include="Content\docs.min.css" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\cover.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -242,6 +248,22 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Grid.mvc.readme" />
+    <Content Include="Content\CarroisGothic\fonts\-g5pDUSRgvxvOl5u-a_WHw.woff" />
+    <Content Include="Content\CarroisGothic\fonts\0rdItLTcOd8TSMl72RUU5w.woff" />
+    <Content Include="Content\CarroisGothic\fonts\6k3Yp6iS9l4jRIpynA8qM3hCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="Content\CarroisGothic\fonts\8Hj8G_JpSADPYrRpzMno2hsxEYwM7FgeyaSgU71cLG0.woff" />
+    <Content Include="Content\CarroisGothic\fonts\B0txb0blf2N29WdYPJjMShZ1gqmQBTb4Nwa_fF0DajA.woff" />
+    <Content Include="Content\CarroisGothic\fonts\FWNn6ITYqL6or7ZTmBxRhq3fkYX5z1QtDUdIWoaaD_k.woff" />
+    <Content Include="Content\CarroisGothic\fonts\GCgb7bssGpwp7V5ynxmWy2IHn70NeZKJ0uStDo7Dza8.woff" />
+    <Content Include="Content\CarroisGothic\fonts\gk5FxslNkTTHtojXrkp-xF1YPouZEKgzpqZW9wN-3Ek.woff" />
+    <Content Include="Content\CarroisGothic\fonts\HM9p0JaHv5-HhbhN_csF8vesZW2xOQ-xsNqO47m55DA.woff" />
+    <Content Include="Content\CarroisGothic\fonts\ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff" />
+    <Content Include="Content\CarroisGothic\fonts\uIa9-L3o-vNXk-UyBI3PSw.woff" />
+    <Content Include="Content\CarroisGothic\fonts\UyYrYy3ltEffJV9QueSi4RdbPw3QSf9R-kE0EsQUn2A.woff" />
+    <Content Include="Content\CarroisGothic\fonts\w5P-SI7QJQSDqB3GziL8XT8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <Content Include="Content\CarroisGothic\fonts\wZLYhRRxZWGToTRP78bqJQ.woff" />
+    <Content Include="Content\CarroisGothic\fonts\Z-Q1hzbY8uAo3TpTyPFMXRHNiTsuUke-4A8E9eWZJHI.woff" />
+    <Content Include="Content\CarroisGothic\fonts\Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff" />
     <None Include="Properties\PublishProfiles\consultadeputados %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\consultadeputados.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -272,6 +294,7 @@
     <Content Include="Views\Orgaos\Listar.cshtml" />
     <Content Include="Views\Deputados\CotaParlamentar.cshtml" />
     <Content Include="Views\Deputados\ListarPorNome.cshtml" />
+    <Content Include="Views\Home\LandingPage.cshtml" />
     <None Include="Web References\comissoes.br.gov.camara.www\comissoes.disco" />
     <Content Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

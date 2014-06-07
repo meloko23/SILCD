@@ -1,0 +1,96 @@
+﻿@font-face {
+  font-family: 'Arbutus Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arbutus Slab'), local('ArbutusSlab-Regular'), url(fonts/6k3Yp6iS9l4jRIpynA8qM3hCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arimo'), url(fonts/wZLYhRRxZWGToTRP78bqJQ.woff) format('woff');
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cabin Condensed'), local('CabinCondensed'), url(fonts/B0txb0blf2N29WdYPJjMShZ1gqmQBTb4Nwa_fF0DajA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Carrois Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Carrois Gothic'), local('CarroisGothic-Regular'), url(fonts/GCgb7bssGpwp7V5ynxmWy2IHn70NeZKJ0uStDo7Dza8.woff) format('woff');
+}
+@font-face {
+  font-family: 'Hammersmith One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Hammersmith One'), local('HammersmithOne'), url(fonts/FWNn6ITYqL6or7ZTmBxRhq3fkYX5z1QtDUdIWoaaD_k.woff) format('woff');
+}
+@font-face {
+  font-family: 'Jockey One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Jockey One'), local('JockeyOne-Regular'), url(fonts/8Hj8G_JpSADPYrRpzMno2hsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Marmelad';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Marmelad'), local('Marmelad-Regular'), url(fonts/HM9p0JaHv5-HhbhN_csF8vesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(fonts/0rdItLTcOd8TSMl72RUU5w.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(fonts/gk5FxslNkTTHtojXrkp-xF1YPouZEKgzpqZW9wN-3Ek.woff) format('woff');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(fonts/-g5pDUSRgvxvOl5u-a_WHw.woff) format('woff');
+}
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Sans Narrow'), local('PTSans-Narrow'), url(fonts/UyYrYy3ltEffJV9QueSi4RdbPw3QSf9R-kE0EsQUn2A.woff) format('woff');
+}
+@font-face {
+  font-family: 'Righteous';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Righteous'), local('Righteous-Regular'), url(fonts/w5P-SI7QJQSDqB3GziL8XT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url(fonts/Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Scada';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Scada'), local('Scada-Regular'), url(fonts/uIa9-L3o-vNXk-UyBI3PSw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Signika Negative'), local('SignikaNegative-Regular'), url(fonts/Z-Q1hzbY8uAo3TpTyPFMXRHNiTsuUke-4A8E9eWZJHI.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(fonts/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
+}
