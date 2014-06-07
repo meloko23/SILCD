@@ -57,6 +57,29 @@ namespace SILCD.Controllers {
             }
         }
 
+        public ActionResult ListarPorNome() {
+            try {
+                var deputados = repositorio.List;
+                string txtPesquisa = Request["txtPesquisa"];
+
+                if (!String.IsNullOrEmpty(txtPesquisa)) {
+                    var _deputados = deputados.Where(d => d.Nome.ToUpper().Contains(txtPesquisa.ToUpper()) ||
+                                                          d.Uf.Contains(txtPesquisa) ||
+                                                          d.Partido.Contains(txtPesquisa)).ToList();
+                    deputados = (List<DeputadoViewModel>)_deputados;
+                }
+
+                if (deputados != null) {
+                    return PartialView("ListarPorNome", deputados);
+                }
+
+                return PartialView();
+
+            } catch (Exception erro) {
+                throw new Exception(erro.Message);
+            }
+        }
+
         public ActionResult Detalhe(int id = 0) {
             try {
                 var deputado = repositorio.Buscar(id);

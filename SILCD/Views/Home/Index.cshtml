@@ -6,6 +6,7 @@
         margin-top: 15px;
     }
 </style>
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
@@ -20,9 +21,15 @@
           ['Maio', 6097828.40, '#3366CC']
         ]);
 
+        var formatter = new google.visualization.NumberFormat(
+            { prefix: '$' }
+        );
+        formatter.format(data, 1);
+
         var options = {
             title: 'Cota Parlamentar 1º Semestre 2014',
-            legend: 'none'
+            legend: 'none',
+            vAxis: { format: '$###,###,###.00' }, // Money format
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_cota_referencia'));
@@ -30,10 +37,42 @@
     }
 </script>
 
-<div class="page-header">
-    <h2>
-        Dashboard
-    </h2>
+<h2>
+    <span class="glyphicon glyphicon-home"></span>
+    Home
+</h2>
+<hr />
+<p>O Poder Legislativo cumpre papel imprescindível perante a sociedade do País, visto que desempenha três funções primordiais para a consolidação da democracia: representar o povo brasileiro, legislar sobre os assuntos de interesse nacional e fiscalizar a aplicação dos recursos públicos.</p>
+<p>Nesse contexto, a Câmara dos Deputados, autêntica representante do povo brasileiro, exerce atividades que viabilizam a realização dos anseios da população, mediante discussão e aprovação de propostas referentes às áreas econômicas e sociais, como educação, saúde, transporte, habitação, entre outras, sem descuidar do correto emprego, pelos Poderes da União, dos recursos arrecadados da população com o pagamento de tributos.</p>
+<p>
+    Assim, a Câmara dos Deputados compõe-se de representantes de todos os Estados e do Distrito Federal, o que resulta em um Parlamento com diversidade de idéias, revelando-se uma Casa legislativa plural, a serviço da sociedade brasileira .
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong></strong></div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong></strong></div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong></strong></div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -41,7 +80,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading"><strong>Cota Parlamentar 1º Semestre 2014</strong></div>
             <div class="panel-body">
-                <div id="chart_div_cota_referencia" style="height: 250px;"></div>
+                <div id="chart_div_cota_referencia"></div>
             </div>
         </div>
     </div>
@@ -49,28 +88,48 @@
         <div class="panel panel-primary">
             <div class="panel-heading"><strong>Top 10 (Maiores gastos)</strong></div>
             <div class="panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge">1</span>
-                        LIRA MAIA	322736.7700
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">1</span>
-                        LIRA MAIA	322736.7700
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">1</span>
-                        LIRA MAIA	322736.7700
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">1</span>
-                        LIRA MAIA	322736.7700
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">1</span>
-                        LIRA MAIA	322736.7700
-                    </li
-                </ul>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>UF</th>
+                            <th>Partido</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LIRA MAIA</td>
+                            <td>PA</td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                        <tr>
+                            <td>LIRA MAIA</td>
+                            <td>PA</td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                        <tr>
+                            <td>LIRA MAIA</td>
+                            <td>PA</td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                        <tr>
+                            <td>LIRA MAIA</td>
+                            <td>PA</td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                        <tr>
+                            <td>LIRA MAIA</td>
+                            <td>PA</td>
+                            <td>DEM</td>
+                            <td>R$ 322.736,77</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

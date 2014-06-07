@@ -1,0 +1,10 @@
+﻿@model IEnumerable<SILCD.Models.DeputadoViewModel>
+@using GridMvc.Html;
+
+<div id="retornoAjax">
+    @Html.Grid(Model).Columns(columns => {    
+    columns.Add(d => d.NomeParlamentar).Titled("Nome").Sortable(true).Filterable(true);
+    columns.Add(d => d.Uf).Titled("Uf").Sortable(true).Filterable(true);
+    columns.Add(d => d.Partido).Titled("Partido").Sortable(true).Filterable(true);
+        }).WithPaging(5).Filterable(true).Sortable(true);
+</div>

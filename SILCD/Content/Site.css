@@ -79,9 +79,12 @@ span.area {
 }
 
 .detalhes-deputado {
-    
 }
 
-.detalhes-deputado dd {
-    margin-bottom:7px;    
+    .detalhes-deputado dd {
+        margin-bottom: 7px;
+    }
+
+.lg-size {
+    width: 960px;
 }

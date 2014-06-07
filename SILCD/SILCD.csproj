@@ -233,6 +233,7 @@
     <Content Include="Content\docs.min.css" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -270,6 +271,7 @@
     <Content Include="Views\Orgaos\Detalhes.cshtml" />
     <Content Include="Views\Orgaos\Listar.cshtml" />
     <Content Include="Views\Deputados\CotaParlamentar.cshtml" />
+    <Content Include="Views\Deputados\ListarPorNome.cshtml" />
     <None Include="Web References\comissoes.br.gov.camara.www\comissoes.disco" />
     <Content Include="Web References\sessoesReunioes.br.gov.camara.www\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
