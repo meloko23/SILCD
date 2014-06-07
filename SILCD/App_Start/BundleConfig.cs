@@ -34,8 +34,8 @@ namespace SILCD {
             bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include("~/Scripts/gridmvc.js"));
             bundles.Add(new StyleBundle("~/Content/cssgridmvc").Include("~/Content/Gridmvc.css"));
 
-            bundles.Add(new StyleBundle("~/Content/CarroisGothicCss").Include(
-                      "~/Content/CarroisGothic/CarroisGothic.css"));            
+            //bundles.Add(new StyleBundle("~/Content/CarroisGothicCss").Include(
+            //          "~/Content/CarroisGothic/CarroisGothic.css"));            
         }
     }
 }
